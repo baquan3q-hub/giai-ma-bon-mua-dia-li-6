@@ -10,10 +10,10 @@ export function turnBook(update:()=>void,direction:1|-1,reduced:boolean){
  current.dataset.flipDirection=direction===1?'forward':'backward';current.dataset.flipState='flipping';const back=snapshot(current,rect.width,rect.height),container=document.createElement('div');
  container.className='flip-stage';container.setAttribute('aria-hidden','true');container.inert=true;
  container.style.cssText=`position:fixed;left:${rect.left}px;top:${rect.top}px;width:${rect.width}px;height:${rect.height}px;perspective:1800px;z-index:90;pointer-events:none;`;
- const leaf=document.createElement('div');leaf.className='turning-leaf';const half=spread?rect.width/2:rect.width;
+ const leaf=document.createElement('div');leaf.className='turning-leaf';const coverTurn=old.classList.contains('front-cover')||current.classList.contains('front-cover');const half=coverTurn?rect.width:(spread?rect.width/2:rect.width);
  leaf.style.cssText=`position:absolute;top:0;${direction===1?'right':'left'}:0;width:${half}px;height:${rect.height}px;transform-style:preserve-3d;transform-origin:${direction===1?'left':'right'} center;`;
  const face=(side:'front'|'back',copy:HTMLElement)=>{const panel=document.createElement('div');panel.className=`leaf-face leaf-${side}`;panel.style.cssText=`position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;background:#f6f3eb;${side==='back'?'transform:rotateY(180deg);':''}`;copy.style.left=spread?((side==='front'&&direction===1)||(side==='back'&&direction===-1)?`-${half}px`:'0'):'0';panel.append(copy);const sheen=document.createElement('div');sheen.className='leaf-sheen';panel.append(sheen);return panel;};
- leaf.append(face('front',front),face('back',back));container.append(leaf);document.body.append(container);
+ leaf.append(face('front',front));if(!coverTurn)leaf.append(face('back',back));container.append(leaf);document.body.append(container);
  const finish=()=>{container.remove();current.dataset.flipState='read';busy=false;};
  if(typeof leaf.animate==='function'){
   const animation=leaf.animate([{transform:'rotateY(0deg)'},{transform:`rotateY(${direction===1?-75:75}deg)`,offset:.48},{transform:`rotateY(${direction===1?-180:180}deg)`}],{duration:900,easing:'cubic-bezier(.22,.65,.2,1)',fill:'forwards'});
