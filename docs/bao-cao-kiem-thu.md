@@ -5,7 +5,7 @@ Ngày thực hiện: 08/11/2026. Bản chạy: https://baquan3q-hub.github.io/gi
 ## Đã thực hiện
 
 - 24 trang, hai bìa riêng, 11 cặp trang; đọc một trang trên màn hình hẹp.
-- 24 ảnh minh hoạ AI chính thức, gồm 19 element có alpha thật và 5 nền; tổng WebP khoảng 1,37 MB (1,31 MiB). PNG nguồn giữ nguyên riêng; D03 được tạo lại sau khi kiểm tra hình ảnh.
+- 24 ảnh minh hoạ AI chính thức, gồm 19 element có alpha thật và 5 nền; tổng WebP khoảng 1,40 MB (1,34 MiB). PNG nguồn giữ nguyên riêng; D03 được tạo lại sau khi kiểm tra hình ảnh.
 - Tách công thức, trạng thái và lớp cảnh. Trục giữ hướng trong hệ tọa độ thế giới; tự quay là lớp riêng.
 - Đài quan sát, bầu trời dựng ảo và chú thích tương tác; điều khiển chạm/kéo, đặt lại và danh sách chú thích.
 - Câu hỏi JSON, ghép mùa bằng Pointer Events hoặc chạm chọn, phiếu, bảng, sáu câu giải mã, vali/rubric, bài kiểm tra và phản tư.
@@ -39,3 +39,7 @@ Ngày thực hiện: 08/11/2026. Bản chạy: https://baquan3q-hub.github.io/gi
 - Chưa đo FPS trên điện thoại tham chiếu; không công bố đạt mục tiêu 30 FPS trên điện thoại.
 
 Vì các điều kiện trên, chưa đánh dấu toàn bộ M1–M5 là nghiệm thu hoàn tất. Bản bàn giao là ứng dụng đã triển khai, kèm checklist phần cần kiểm chứng trên thiết bị và tài khoản của nhóm.
+
+## Xác minh phát hành
+
+GitHub Actions chạy test/build/deploy thành công. Đã mở link HTTPS công khai, kiểm tra không có ảnh thiếu/tràn ngang ở bìa và cảnh 3D được dựng thành canvas với trạng thái 22/6. QR công khai nằm cạnh tài liệu.
