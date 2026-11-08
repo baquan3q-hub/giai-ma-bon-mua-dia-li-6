@@ -187,3 +187,7 @@ Create ONE polished stylized 3D educational illustration for ages11-12, palette 
 ```
 
 
+
+## D03 — bản sửa đã duyệt
+
+Bản đầu tạo kèm người, loại khỏi bộ chính; giữ ở `anh-goc/vat-pham/ban-nhap/D03-v1.png`. Bản chính được tạo lại bằng prompt: ONLY ONE isolated knitted winter SCARF, mustard-gold, two fringed ends, NO human/child/character/mannequin/face/hands/body/other clothing, transparent alpha background.
