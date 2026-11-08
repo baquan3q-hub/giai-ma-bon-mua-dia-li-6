@@ -1,0 +1,384 @@
+{
+  "predictions": [
+    {
+      "prompt": "Vì sao có mùa?",
+      "options": [
+        "Do Trái Đất lúc gần lúc xa Mặt Trời",
+        "Do trục nghiêng và giữ hướng khi chuyển động",
+        "Do Mặt Trời thay đổi nhiệt độ"
+      ]
+    },
+    {
+      "prompt": "Tháng 7, Hà Nội là mùa nóng. Sydney thì sao?",
+      "options": [
+        "Mùa nóng",
+        "Mùa lạnh",
+        "Không thay đổi"
+      ]
+    },
+    {
+      "prompt": "Ngày 22/6, nơi nào có ngày dài nhất trong ba nơi?",
+      "options": [
+        "Xích đạo",
+        "Hà Nội",
+        "Gần vòng cực Bắc"
+      ]
+    }
+  ],
+  "orbit": [
+    {
+      "id": "orbit-1",
+      "prompt": "Quỹ đạo có hình gì?",
+      "options": [
+        "Elip gần tròn",
+        "Tròn tuyệt đối",
+        "Elip rất dẹt"
+      ],
+      "correct": 0,
+      "explanation": "Quỹ đạo là elip gần tròn. Hình vẽ phối cảnh có thể khiến em thấy nó dẹt hơn thực tế."
+    },
+    {
+      "id": "orbit-2",
+      "prompt": "Hướng chuyển động là…",
+      "options": [
+        "Từ tây sang đông",
+        "Từ đông sang tây"
+      ],
+      "correct": 0,
+      "explanation": "Trái Đất chuyển động quanh Mặt Trời từ tây sang đông, cùng chiều tự quay."
+    },
+    {
+      "id": "orbit-3",
+      "prompt": "Trục nghiêng so với mặt phẳng quỹ đạo…",
+      "options": [
+        "66°33′, giữ nguyên hướng",
+        "23°27′, luôn hướng về Mặt Trời"
+      ],
+      "correct": 0,
+      "explanation": "66°33′ so với mặt phẳng quỹ đạo tương ứng khoảng 23,44° so với phương vuông góc. Hướng trục gần như không đổi trong một năm."
+    }
+  ],
+  "journal": [
+    {
+      "id": "journal-1",
+      "prompt": "Một vòng quanh Mặt Trời mất khoảng…",
+      "options": [
+        "365 ngày 6 giờ",
+        "24 giờ",
+        "30 ngày"
+      ],
+      "correct": 0,
+      "explanation": "Đây là thời gian chuyển động quanh Mặt Trời; 24 giờ là một vòng tự quay gần đúng."
+    },
+    {
+      "id": "journal-2",
+      "prompt": "Điều gì giữ nguyên khi đi quanh Mặt Trời?",
+      "options": [
+        "Độ nghiêng và hướng nghiêng của trục",
+        "Nửa cầu hướng về phía Mặt Trời"
+      ],
+      "correct": 0,
+      "explanation": "Hai bán cầu luân phiên ngả về phía Mặt Trời vì trục giữ hướng trong khi vị trí quỹ đạo thay đổi."
+    },
+    {
+      "id": "journal-3",
+      "prompt": "Mô hình giúp kiểm chứng điều nào?",
+      "options": [
+        "Trục không quay theo vị trí quỹ đạo",
+        "Mùa hè do ở gần Mặt Trời"
+      ],
+      "correct": 0,
+      "explanation": "Đầu trục luôn chỉ cùng một hướng trong không gian ở mô hình một năm."
+    }
+  ],
+  "distance": [
+    {
+      "id": "distance",
+      "prompt": "Bằng chứng nào bác bỏ giả thuyết gần–xa?",
+      "options": [
+        "Hai bán cầu trái mùa dù cùng khoảng cách đến Mặt Trời",
+        "Hai bán cầu luôn cùng mùa"
+      ],
+      "correct": 0,
+      "explanation": "Khoảng cách là chung cho cả Trái Đất, nhưng tháng 7 Bắc nóng và Nam lạnh. Nguyên nhân chính là trục nghiêng và giữ hướng."
+    }
+  ],
+  "truth": [
+    {
+      "id": "truth-0",
+      "prompt": "Trục Trái Đất luôn quay về phía Mặt Trời.",
+      "options": [
+        "Sai",
+        "Đúng"
+      ],
+      "correct": 0,
+      "explanation": "Trục giữ hướng trong không gian ở mô hình một năm."
+    },
+    {
+      "id": "truth-1",
+      "prompt": "Hai bán cầu có mùa trái ngược nhau.",
+      "options": [
+        "Đúng",
+        "Sai"
+      ],
+      "correct": 0,
+      "explanation": "Một bán cầu ngả về Mặt Trời trong khi bán cầu còn lại chếch ra xa."
+    },
+    {
+      "id": "truth-2",
+      "prompt": "Tháng 7 Trái Đất gần Mặt Trời nhất.",
+      "options": [
+        "Sai",
+        "Đúng"
+      ],
+      "correct": 0,
+      "explanation": "Khoảng cách gần nhất thường vào đầu tháng 1; xa nhất thường đầu tháng 7."
+    },
+    {
+      "id": "truth-3",
+      "prompt": "Tại Xích đạo, ngày và đêm gần bằng nhau.",
+      "options": [
+        "Đúng",
+        "Sai"
+      ],
+      "correct": 0,
+      "explanation": "Mô hình lý tưởng cho 12 giờ ngày và 12 giờ đêm."
+    },
+    {
+      "id": "truth-4",
+      "prompt": "Mùa lạnh ở một bán cầu thường có đêm dài hơn ngày.",
+      "options": [
+        "Đúng",
+        "Sai"
+      ],
+      "correct": 0,
+      "explanation": "Bán cầu nhận ít ánh sáng hơn trong thời gian một ngày."
+    }
+  ],
+  "table": [
+    {
+      "id": "table-0",
+      "prompt": "22/6 · Bán cầu Bắc",
+      "options": [
+        "Mùa nóng, ngày dài hơn đêm",
+        "Mùa lạnh, ngày ngắn hơn đêm"
+      ],
+      "correct": 0,
+      "explanation": "Bán cầu Bắc ngả về Mặt Trời vào 22/6."
+    },
+    {
+      "id": "table-1",
+      "prompt": "22/6 · Bán cầu Nam",
+      "options": [
+        "Mùa lạnh, ngày ngắn hơn đêm",
+        "Mùa nóng, ngày dài hơn đêm"
+      ],
+      "correct": 0,
+      "explanation": "Cùng thời điểm, bán cầu Nam chếch ra xa Mặt Trời."
+    },
+    {
+      "id": "table-2",
+      "prompt": "22/12 · Bán cầu Bắc",
+      "options": [
+        "Mùa lạnh, ngày ngắn hơn đêm",
+        "Mùa nóng, ngày dài hơn đêm"
+      ],
+      "correct": 0,
+      "explanation": "Bán cầu Bắc chếch ra xa Mặt Trời vào 22/12."
+    },
+    {
+      "id": "table-3",
+      "prompt": "22/12 · Bán cầu Nam",
+      "options": [
+        "Mùa nóng, ngày dài hơn đêm",
+        "Mùa lạnh, ngày ngắn hơn đêm"
+      ],
+      "correct": 0,
+      "explanation": "Bán cầu Nam ngả về Mặt Trời vào 22/12."
+    }
+  ],
+  "code": [
+    {
+      "id": "code-0",
+      "prompt": "Trái Đất quay quanh…",
+      "options": [
+        "Mặt Trời",
+        "Mặt Trăng"
+      ],
+      "correct": 0,
+      "explanation": "Chuyển động quanh Mặt Trời cùng với đặc điểm trục nghiêng tạo ra các hệ quả."
+    },
+    {
+      "id": "code-1",
+      "prompt": "Quỹ đạo có dạng…",
+      "options": [
+        "Elip gần tròn",
+        "Đường thẳng"
+      ],
+      "correct": 0,
+      "explanation": "Elip gần tròn nên không dùng hình quỹ đạo dẹt để kết luận nguyên nhân mùa."
+    },
+    {
+      "id": "code-2",
+      "prompt": "Trục giữ nguyên…",
+      "options": [
+        "Hướng nghiêng",
+        "Vị trí trong hệ Mặt Trời"
+      ],
+      "correct": 0,
+      "explanation": "Hướng nghiêng giữ nguyên trong mô hình một năm."
+    },
+    {
+      "id": "code-3",
+      "prompt": "22/6, bán cầu Bắc có…",
+      "options": [
+        "Ngày dài hơn đêm",
+        "Đêm dài hơn ngày"
+      ],
+      "correct": 0,
+      "explanation": "Bán cầu Bắc đang ngả về phía Mặt Trời."
+    },
+    {
+      "id": "code-4",
+      "prompt": "Càng về phía cực, chênh lệch ngày đêm…",
+      "options": [
+        "Càng lớn",
+        "Càng nhỏ"
+      ],
+      "correct": 0,
+      "explanation": "Đặc biệt có hiện tượng ngày hoặc đêm kéo dài 24 giờ ở vĩ độ cao."
+    },
+    {
+      "id": "code-5",
+      "prompt": "Tháng 7 ở Sydney nên mang…",
+      "options": [
+        "Áo ấm",
+        "Chỉ quần áo mùa nóng"
+      ],
+      "correct": 0,
+      "explanation": "Sydney ở bán cầu Nam, tháng 7 là mùa đông."
+    }
+  ],
+  "quiz": [
+    {
+      "id": "q1",
+      "prompt": "Trái Đất chuyển động quanh Mặt Trời theo hướng nào?",
+      "options": [
+        "Tây sang đông",
+        "Đông sang tây",
+        "Bắc xuống nam",
+        "Nam lên bắc"
+      ],
+      "correct": 0,
+      "explanation": "Cùng chiều với chuyển động tự quay: từ tây sang đông."
+    },
+    {
+      "id": "q2",
+      "prompt": "Một vòng quanh Mặt Trời mất khoảng…",
+      "options": [
+        "24 giờ",
+        "30 ngày",
+        "365 ngày 6 giờ",
+        "366 ngày 6 giờ"
+      ],
+      "correct": 2,
+      "explanation": "SGK dùng giá trị gần đúng 365 ngày 6 giờ."
+    },
+    {
+      "id": "q3",
+      "prompt": "Quỹ đạo của Trái Đất có hình…",
+      "options": [
+        "Tròn tuyệt đối",
+        "Elip gần tròn",
+        "Vuông",
+        "Đường thẳng"
+      ],
+      "correct": 1,
+      "explanation": "Quỹ đạo là elip có độ lệch tâm nhỏ."
+    },
+    {
+      "id": "q4",
+      "prompt": "Khi đi quanh Mặt Trời, trục Trái Đất…",
+      "options": [
+        "Thẳng đứng",
+        "Đổi hướng theo mùa",
+        "Nghiêng 66°33′ với mặt phẳng quỹ đạo và giữ hướng",
+        "Nằm ngang"
+      ],
+      "correct": 2,
+      "explanation": "Phải nêu rõ mặt phẳng tham chiếu cho góc nghiêng."
+    },
+    {
+      "id": "q5",
+      "prompt": "Ngày 22/6, bán cầu Bắc…",
+      "options": [
+        "Ngả về Mặt Trời, mùa nóng",
+        "Chếch xa Mặt Trời, mùa lạnh",
+        "Được chiếu sáng bằng bán cầu Nam",
+        "Hoàn toàn là đêm"
+      ],
+      "correct": 0,
+      "explanation": "Nhận ánh sáng trực tiếp hơn và thời gian chiếu sáng dài hơn."
+    },
+    {
+      "id": "q6",
+      "prompt": "Theo các ngày quy ước trong SGK, Mặt Trời chiếu thẳng góc Xích đạo vào…",
+      "options": [
+        "22/6 và 22/12",
+        "21/3 và 23/9",
+        "1/1 và 1/7",
+        "22/6 và 23/9"
+      ],
+      "correct": 1,
+      "explanation": "Hai mốc xuân phân và thu phân được mô hình hoá trong SGK; ngày thực thay đổi theo năm."
+    },
+    {
+      "id": "q7",
+      "prompt": "Nguyên nhân chính sinh ra mùa là…",
+      "options": [
+        "Khoảng cách đến Mặt Trời",
+        "Trục nghiêng và giữ hướng khi đi quanh Mặt Trời",
+        "Sự tự quay",
+        "Mặt Trời lúc nóng lúc lạnh"
+      ],
+      "correct": 1,
+      "explanation": "Hai bán cầu trái mùa ở cùng một khoảng cách: trục nghiêng là chìa khoá."
+    },
+    {
+      "id": "q8",
+      "prompt": "Ngày 22/12 ở bán cầu Nam…",
+      "options": [
+        "Ngày dài hơn đêm",
+        "Đêm dài hơn ngày",
+        "Ngày bằng đêm ở mọi nơi",
+        "Không có ban ngày"
+      ],
+      "correct": 0,
+      "explanation": "Bán cầu Nam đang là mùa nóng."
+    },
+    {
+      "id": "q9",
+      "prompt": "Tháng 7, Sydney đang là…",
+      "options": [
+        "Mùa nóng",
+        "Mùa lạnh",
+        "Không có mùa",
+        "Mùa xuân"
+      ],
+      "correct": 1,
+      "explanation": "Sydney nằm ở bán cầu Nam, trái mùa với Hà Nội."
+    },
+    {
+      "id": "q10",
+      "prompt": "22/6, nơi nào có chênh lệch ngày đêm lớn nhất?",
+      "options": [
+        "Xích đạo",
+        "TP. Hồ Chí Minh",
+        "Hà Nội",
+        "Gần vòng cực Bắc"
+      ],
+      "correct": 3,
+      "explanation": "Càng về phía cực, chênh lệch ngày đêm càng lớn."
+    }
+  ]
+}

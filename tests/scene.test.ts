@@ -1,0 +1,2 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {Object3D,Vector3} from 'three';import {earthFrame} from '../src/scenes/earth-frame';
+test('Hướng trục trong hệ tọa độ thế giới giữ nguyên qua 365 vị trí thật của hierarchy 3D',()=>{const frame=earthFrame();const north=new Object3D();north.position.y=1;frame.tilted.add(north);for(let day=1;day<=365;day++){frame.move(day);const actual=north.getWorldPosition(new Vector3()).sub(frame.root.getWorldPosition(new Vector3())).normalize();assert.ok(actual.distanceTo(frame.axis)<1e-12);}});
