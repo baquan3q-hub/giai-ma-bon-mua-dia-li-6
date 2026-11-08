@@ -23,7 +23,7 @@ const rows:[string,string,string,number|undefined,string][]=[
 ['Kết quả & lời giải','TRẠM 4 · NHÌN LẠI','Một câu sai cũng có thể dẫn đến một phát hiện mới.',4,'B05'],
 ['Em đã thay đổi điều gì?','TRẠM 4 · TRƯỚC & SAU','Đối chiếu dự đoán ban đầu với những điều vừa khám phá.',4,'B01'],
 ['Hồ sơ nhà giải mã','TRẠM 4 · HÀNH TRÌNH CỦA EM','Mang theo kiến thức, không chỉ huy hiệu.',4,'B01'],
-['Hẹn gặp ở hành trình mới','GIẢI MÃ BỐN MÙA · PHIÊN BẢN 1.0','Quan sát bầu trời hôm nay. Em sẽ nhìn thấy điều gì khác?',undefined,'B05']];
+['Hẹn gặp ở hành trình mới','GIẢI MÃ BỐN MÙA · PHIÊN BẢN 1.1','Quan sát bầu trời hôm nay. Em sẽ nhìn thấy điều gì khác?',undefined,'B05']];
 export const pages:BookPage[]=rows.map((r,i)=>({number:i+1,title:r[0],eyebrow:r[1],intro:r[2],station:r[3],image:r[4]}));
 export const spreads=[[1],...Array.from({length:11},(_,i)=>[i*2+2,i*2+3]),[24]];
 export const stations=[{name:'Bản tin hai bán cầu',page:6,badge:'Người đặt câu hỏi',time:'Trước giờ học'},{name:'Quỹ đạo',page:8,badge:'Nhà khám phá quỹ đạo',time:'Tiết 1'},{name:'Bốn ngày đặc biệt',page:12,badge:'Người giải mã mùa',time:'Tiết 1'},{name:'Đồng hồ ngày đêm',page:14,badge:'Người đọc ngày đêm',time:'Tiết 2'},{name:'Về đích',page:20,badge:'Nhà giải mã',time:'Sau giờ học'}];

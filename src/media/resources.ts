@@ -1,0 +1,4 @@
+export type Resource={id:string;type:'youtube'|'link';title:string;url:string;source:string;description:string;pages:number[];youtubeId?:string};
+export function youtubeId(raw:string):string|null{try{const u=new URL(raw);if(u.protocol!=='https:')return null;const host=u.hostname.replace(/^www\./,'');let id='';if(host==='youtu.be')id=u.pathname.slice(1);else if(host==='youtube.com'||host==='youtube-nocookie.com'){id=u.searchParams.get('v')||u.pathname.match(/^\/(?:embed|shorts)\/([^/]+)/)?.[1]||'';}return /^[\w-]{11}$/.test(id)?id:null;}catch{return null;}}
+export function embedURL(id:string){if(!/^[\w-]{11}$/.test(id))throw Error('Mã YouTube không hợp lệ');return `https://www.youtube-nocookie.com/embed/${id}?playsinline=1&rel=0&cc_load_policy=1`;}
+export function safeResourceURL(raw:string){try{const url=new URL(raw);return url.protocol==='https:'?url.href:null;}catch{return null;}}

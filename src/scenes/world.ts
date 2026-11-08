@@ -1,3 +1,4 @@
+import {addRealisticSurfaces} from './realistic';
 import {earthFrame} from './earth-frame';
 import * as THREE from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
@@ -18,7 +19,7 @@ export function createScene(host:HTMLElement,kind:Kind,initial:State,options:Opt
  const camera=new THREE.PerspectiveCamera(48,1,0.05,150);camera.position.set(0,6,9);
  const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.minDistance=3;controls.maxDistance=22;controls.maxPolarAngle=Math.PI*0.86;
  const low=options.quality==='low',detail=low?24:48;
- scene.add(new THREE.AmbientLight('#56758a',0.4));scene.add(new THREE.HemisphereLight('#cde6ff','#061124',0.7));
+ scene.add(new THREE.AmbientLight('#56758a',0.12));scene.add(new THREE.HemisphereLight('#cde6ff','#061124',0.25));
  const textures:THREE.Texture[]=[];
  const mat=(color:THREE.ColorRepresentation,metalness=0)=>new THREE.MeshStandardMaterial({color,metalness,roughness:0.55});
  const sphere=(r:number,material:THREE.Material)=>new THREE.Mesh(new THREE.SphereGeometry(r,detail,detail/2),material);
@@ -45,6 +46,7 @@ export function createScene(host:HTMLElement,kind:Kind,initial:State,options:Opt
  const compass=new THREE.Group();
  function textSprite(text:string,color='#f5e9cc',w=512){const canvas=document.createElement('canvas');canvas.width=w;canvas.height=128;const ctx=canvas.getContext('2d')!;ctx.fillStyle='#10233be8';ctx.fillRect(0,0,w,128);ctx.fillStyle=color;ctx.font='bold 32px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,w/2,64,w-20);const texture=new THREE.CanvasTexture(canvas);texture.colorSpace=THREE.SRGBColorSpace;textures.push(texture);const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:texture,depthTest:true,transparent:true}));sp.scale.set(w/180,128/180,1);return sp;}
  if(kind==='sky'){
+  const sunMap=new THREE.TextureLoader().load(import.meta.env.BASE_URL+'assets/textures/sun.jpg');sunMap.colorSpace=THREE.SRGBColorSpace;textures.push(sunMap);(skySun.material as THREE.MeshBasicMaterial).map=sunMap;(skySun.material as THREE.MeshBasicMaterial).color.set('#ffffff');
   for(const object of [sun,halo,earthRoot,orbit,orbitPlane])object.visible=false;
   sunlight.visible=false;const ground=new THREE.Mesh(new THREE.PlaneGeometry(120,120),mat('#234e49'));ground.rotation.x=-Math.PI/2;ground.position.y=-.05;scene.add(ground);scene.add(new THREE.HemisphereLight('#c9efff','#4d6c5b',2));
   for(let i=0;i<36;i++){const angle=i*Math.PI/18;const height=1+(i*7%9)*.28;const block=new THREE.Mesh(new THREE.BoxGeometry(1.2,height,1.2),mat(i%2?'#325864':'#517d83'));block.position.set(18*Math.sin(angle),height/2,18*Math.cos(angle));scene.add(block);}
@@ -55,10 +57,22 @@ export function createScene(host:HTMLElement,kind:Kind,initial:State,options:Opt
  const status=document.createElement('div');status.className='world-status';status.setAttribute('role','status');ui.append(status);
  const detailBox=document.createElement('div');detailBox.className='world-detail';detailBox.hidden=true;ui.append(detailBox);
  const hint=document.createElement('div');hint.className='world-hint';hint.textContent='Kéo để nhìn quanh · Chạm điểm chú thích';ui.append(hint);
- let state={...initial},disposed=false,modelMode=kind==='orbit',yaw=0,pitch=0,lastDay=-1,lastLat=100,active:string|undefined;
+ let rotationPaused=options.reduced;let state={...initial},disposed=false,modelMode=kind==='orbit',yaw=0,pitch=0,lastDay=-1,lastLat=100,active:string|undefined;
  const defaultPos=kind==='sky'?new THREE.Vector3(0,1.65,0):kind==='observatory'?new THREE.Vector3(0,2.4,9):new THREE.Vector3(0,6,9);
  function reset(){camera.position.copy(defaultPos);controls.target.set(0,0,0);camera.lookAt(kind==='sky'?new THREE.Vector3(0,2,-12):new THREE.Vector3(0,0,0));const e=new THREE.Euler().setFromQuaternion(camera.quaternion,'YXZ');yaw=e.y;pitch=e.x;if(modelMode)controls.update();}
  reset();controls.enabled=modelMode;
+ const real=kind!=='sky'?addRealisticSurfaces(globe,sun,host,low,()=>disposed,t=>textures.push(t)):undefined;
+ if(kind!=='sky'){
+  const views=document.createElement('div');views.className='world-view-buttons';
+  const close=document.createElement('button');close.textContent='Cận cảnh Trái Đất';close.setAttribute('aria-label','Cận cảnh Trái Đất');
+  const overview=document.createElement('button');overview.textContent='Toàn quỹ đạo';
+  const lines=document.createElement('button');lines.textContent='Ẩn lưới';
+  close.addEventListener('click',()=>{modelMode=true;controls.enabled=true;controls.minDistance=1.3;controls.target.copy(earthRoot.position);camera.position.copy(earthRoot.position).add(new THREE.Vector3(.6,.7,1.2));controls.update();detailBox.hidden=false;detailBox.textContent='Quan sát vùng sáng–tối và đầu trục. Tự quay tạo ngày đêm; trục nghiêng, giữ hướng tạo mùa.';},{signal});
+  overview.addEventListener('click',()=>{controls.minDistance=3;reset();},{signal});
+  lines.addEventListener('click',()=>{grid.visible=!grid.visible;lines.textContent=grid.visible?'Ẩn lưới':'Hiện lưới';},{signal});
+  const spin=document.createElement('button');spin.textContent=rotationPaused?'Bật tự quay':'Dừng tự quay';spin.addEventListener('click',()=>{rotationPaused=!rotationPaused;spin.textContent=rotationPaused?'Bật tự quay':'Dừng tự quay';},{signal});views.append(close,overview,lines,spin);host.append(views);
+ }
+
  mode.addEventListener('click',()=>{if(kind==='sky')return;modelMode=!modelMode;controls.enabled=modelMode;mode.textContent=modelMode?'Nhìn quanh không gian':'Khám phá mô hình';if(!modelMode){const e=new THREE.Euler().setFromQuaternion(camera.quaternion,'YXZ');yaw=e.y;pitch=e.x;}}, {signal});
  type Marker={id:string;title:string;text:string;pos:()=>THREE.Vector3;el:HTMLButtonElement;sprite:THREE.Sprite};const markers:Marker[]=[];
  const addMarker=(id:string,title:string,text:string,pos:()=>THREE.Vector3)=>{const el=document.createElement('button');el.className='world-marker';el.textContent=title;el.setAttribute('aria-label',`Chú thích: ${title}`);host.append(el);const sprite=textSprite(title);sprite.scale.multiplyScalar(.45);scene.add(sprite);sprite.visible=false;const marker={id,title,text,pos,el,sprite};markers.push(marker);el.addEventListener('click',()=>select(marker),{signal});};
@@ -79,7 +93,7 @@ export function createScene(host:HTMLElement,kind:Kind,initial:State,options:Opt
  renderer.domElement.addEventListener('pointermove',e=>{if(!down||e.pointerId!==down.id||modelMode||renderer.xr.isPresenting)return;const dx=e.clientX-down.x,dy=e.clientY-down.y;yaw-=dx*.004;pitch=Math.max(-1.4,Math.min(1.4,pitch-dy*.004));camera.quaternion.setFromEuler(new THREE.Euler(pitch,yaw,0,'YXZ'));down.x=e.clientX;down.y=e.clientY;},{signal});
  const clearDown=()=>down=undefined;renderer.domElement.addEventListener('pointerup',clearDown,{signal});renderer.domElement.addEventListener('pointercancel',clearDown,{signal});
  renderer.domElement.addEventListener('keydown',e=>{if(modelMode)return;const keys:Record<string,[number,number]>={ArrowLeft:[.1,0],ArrowRight:[-.1,0],ArrowUp:[0,.1],ArrowDown:[0,-.1]};if(keys[e.key]){e.preventDefault();e.stopPropagation();yaw+=keys[e.key][0];pitch=Math.max(-1.4,Math.min(1.4,pitch+keys[e.key][1]));camera.quaternion.setFromEuler(new THREE.Euler(pitch,yaw,0,'YXZ'));}},{signal});
- function update(s:State){state={...s};earth.move(s.day);status.textContent=kind==='sky'?`${s.lat<0?'Sydney':'Hà Nội'} · ${dateLabel(s.day)} · Ngày ${hours(dayLength(s.day,s.lat))}`:`${dateLabel(s.day)} · Trục giữ hướng`;
+ function update(s:State){const last=earthRoot.position.clone();state={...s};earth.move(s.day);if(controls.target.distanceTo(last)<.1&&controls.target.length()>1){const delta=earthRoot.position.clone().sub(last);controls.target.add(delta);camera.position.add(delta);}status.textContent=kind==='sky'?`${s.lat<0?'Sydney':'Hà Nội'} · ${dateLabel(s.day)} · Ngày ${hours(dayLength(s.day,s.lat))}`:`${dateLabel(s.day)} · Trục giữ hướng`;
   if(kind==='sky'){
    skySun.position.set(...solarDirection(s.day,s.lat,s.time)).multiplyScalar(24).add(new THREE.Vector3(0,1.65,0));const brightness=Math.max(0,Math.min(1,(solarDirection(s.day,s.lat,s.time)[1]+.10)*2));scene.background=new THREE.Color('#071327').lerp(new THREE.Color('#75b7d2'),brightness);stars.material.opacity=1-brightness;stars.material.transparent=true;
    if(lastDay!==s.day||lastLat!==s.lat){const path=daylightPath(s.day,s.lat);const points=[];for(let i=0;i<=80;i++)points.push(new THREE.Vector3(...solarDirection(s.day,s.lat,path.rise+(path.set-path.rise)*i/80)).multiplyScalar(23).add(new THREE.Vector3(0,1.65,0)));skyPath.geometry.dispose();skyPath.geometry=new THREE.BufferGeometry().setFromPoints(points);lastDay=s.day;lastLat=s.lat;}
@@ -88,7 +102,7 @@ export function createScene(host:HTMLElement,kind:Kind,initial:State,options:Opt
  update(state);
  const resize=new ResizeObserver(()=>{const w=host.clientWidth,h=Math.max(200,host.clientHeight);renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();});resize.observe(host);
  const clock=new THREE.Clock();const projected=new THREE.Vector3();let frame=0;
- renderer.setAnimationLoop(()=>{if(disposed||document.hidden)return;const dt=Math.min(clock.getDelta(),.05);if(!options.reduced)globe.rotation.y+=dt*.12;if(controls.enabled&&!renderer.xr.isPresenting)controls.update();
+ renderer.setAnimationLoop(()=>{if(disposed||document.hidden)return;const dt=Math.min(clock.getDelta(),.05);if(!rotationPaused){globe.rotation.y+=dt*.12;real?.tick(dt);sun.rotation.y+=dt*.016;halo.scale.setScalar(1+Math.sin(clock.elapsedTime*.7)*.025);}if(controls.enabled&&!renderer.xr.isPresenting)controls.update();
   const xr=renderer.xr.isPresenting;ui.hidden=xr;
   if(frame++%2===0)for(const marker of markers){const pos=marker.pos();marker.sprite.position.copy(pos);marker.sprite.visible=xr;projected.copy(pos).project(camera);let visible=!xr&&projected.z<1&&projected.z>-1&&Math.abs(projected.x)<.95&&Math.abs(projected.y)<.88;
    if(visible&&kind!=='sky'){const direction=pos.clone().sub(camera.position);const distance=direction.length();raycaster.set(camera.position,direction.normalize());const hits=raycaster.intersectObject(globe,true);if(hits[0]&&hits[0].distance<distance-.35)visible=false;}

@@ -1,6 +1,6 @@
 # Giải mã bốn mùa
 
-Ebook tương tác 24 trang cho Bài 8, Lịch sử và Địa lí 6, Kết nối tri thức. Có sách một/hai trang, 24 ảnh AI, mô phỏng quỹ đạo, khám phá 360°, đồng hồ ngày đêm, trò chơi và bài kiểm tra. Chạy không đăng nhập; cần kết nối để tải học liệu lần đầu.
+Ebook tương tác 24 trang cho Bài 8, Lịch sử và Địa lí 6, Kết nối tri thức. Có sách một/hai trang, 30 ảnh minh hoạ AI, mô phỏng quỹ đạo, khám phá 360°, đồng hồ ngày đêm, trò chơi và bài kiểm tra. Chạy không đăng nhập; cần kết nối để tải học liệu lần đầu.
 
 ## Chạy trên Windows
 
@@ -64,3 +64,14 @@ Chế độ phát triển `?demo=1` tách huy hiệu thử vào sessionStorage, 
 ## Nguồn
 
 SGK Bài 8, ảnh trang 122–124 do nhóm cung cấp; [NASA về mùa](https://spaceplace.nasa.gov/seasons/en/), [NOAA về vị trí Mặt Trời](https://gml.noaa.gov/grad/solcalc/solareqns.PDF), [Three.js](https://threejs.org/). Hình minh hoạ AI được tạo riêng cho dự án; không phải ảnh chụp thực địa.
+
+
+## Bản nâng cấp 1.1
+
+Lật giấy hai mặt, âm thanh Web Audio, hook ở từng trang và lời nhắc Sao Mai. Mở Tuỳ chọn để đổi hiệu ứng lật sách; âm thanh có nút bật/tắt riêng. Nghe đọc dùng giọng Việt của thiết bị; nếu không có giọng sẽ có thông báo.
+
+Bổ sung bảy infographic, sáu icon F01–F06, mô hình NASA tối ưu và bề mặt Solar System Scope CC BY 4.0. Chọn Cận cảnh Trái Đất trong mô hình; mở rộng có hộp giải thích và nút infographic. Xem ghi nguồn ở public/data/asset-sources.json.
+
+Thêm hoặc sửa học liệu trong public/data/resources.json. Mỗi mục có id, type (youtube hoặc link), title, url HTTPS, source, description, pages (danh sách trang). YouTube hỗ trợ link watch, youtu.be, embed; player chỉ tải sau khi chọn Phát video trong sách. Không điền link rỗng/giả. Bài kiểm tra của lớp dùng type link và URL do GV cung cấp.
+
+Chi tiết nghiên cứu và checklist: docs/nang-cap-flipbook-v1.1.md.

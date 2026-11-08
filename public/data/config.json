@@ -1,1 +1,20 @@
-{"book":{"author":"Quân","school":"ĐH Giáo dục – ĐHQGHN","course":"Học liệu số","version":"1.0.0"},"video":{"url":"","license":""},"googleForm":{"url":"","entries":{"name":"","className":"","result":""}}}
+{
+  "book": {
+    "author": "Quân",
+    "school": "ĐH Giáo dục – ĐHQGHN",
+    "course": "Học liệu số",
+    "version": "1.1.0"
+  },
+  "video": {
+    "url": "",
+    "license": ""
+  },
+  "googleForm": {
+    "url": "",
+    "entries": {
+      "name": "",
+      "className": "",
+      "result": ""
+    }
+  }
+}

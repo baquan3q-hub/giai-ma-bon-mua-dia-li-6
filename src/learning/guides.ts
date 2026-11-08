@@ -1,0 +1,27 @@
+export interface PageGuide{hook:string;task:string;learn:string;cta:string;action:string;icon:string}
+const rows:[string,string,string,string,string,string][]=[
+['Một hành tinh, hai mùa trái ngược?','Mở sách để bắt đầu tìm bằng chứng.','Giải thích sự khác nhau giữa Hà Nội và Sydney.','Mở sách','go:2','F01'],
+['Em đã sẵn sàng làm nhà giải mã?','Nhận nhiệm vụ, rồi đọc cách dùng sách.','Biết đích đến của hành trình.','Nhận nhiệm vụ','go:3','F05'],
+['Chưa biết chạm vào đâu?','Thử mở một chú thích mẫu.','Biết cách lật trang, xoay và thoát mô hình.','Thử ngay','hint-demo','F06'],
+['Cuối chuyến đi, em sẽ làm được gì?','Chạm một mục tiêu để xem ví dụ.','Biết mình học điều gì và dùng vào đâu.','Xem mục tiêu','goal:0','F02'],
+['Em đang ở chặng nào?','Chạm một trạm trên bản đồ.','Theo dõi việc đã làm và việc tiếp theo.','Vào Trạm 0','go:6','F05'],
+['Tháng 7 mà phải mang áo ấm?','Đọc bản tin Hà Nội–Sydney, chưa vội kết luận.','Nhận ra một câu hỏi cần kiểm chứng.','Đọc bản tin','news','F06'],
+['Em đang nghĩ gì về nguyên nhân mùa?','Trả lời ba dự đoán bằng hiểu biết hiện tại.','Giữ bằng chứng về suy nghĩ trước khi học.','Ghi dự đoán','prediction','F03'],
+['Đầu trục có quay theo quỹ đạo không?','Kéo ngày đến 22/6, rồi 22/12; nhìn đầu trục.','Phân biệt chuyển động quỹ đạo và hướng trục.','Quan sát cận cảnh','scene:orbit','F01'],
+['66°33′ và 23,44° có mâu thuẫn?','So sánh hai hướng tham chiếu trên hình.','Hiểu hai góc bổ sung nhau, không nhầm mặt phẳng.','Xem infographic','info:tilt','F02'],
+['Trong đài quan sát có bằng chứng nào?','Mở 360°, chạm ba chú thích và đổi ngày.','Dùng mô hình để giải thích thay vì chỉ đoán.','Bước vào đài','scene:observatory','F05'],
+['Điều em thấy nói lên quy luật gì?','Ghi ba nhận xét vào nhật ký.','Mô tả quỹ đạo, thời gian và trục nghiêng.','Ghi nhật ký','activity:journal','F02'],
+['Hai bán cầu có thể cùng mùa không?','Chọn ngày và ghép tám thẻ mùa.','Nhận ra hai bán cầu trái mùa.','Ghép thẻ mùa','seasons','F03'],
+['Nếu gần hơn thì cả hai bán cầu phải cùng nóng?','Đối chiếu khoảng cách và mùa hai bán cầu.','Bác bỏ quan niệm mùa hè do gần Mặt Trời.','Kiểm chứng','activity:distance','F01'],
+['Mỗi ngày có luôn 12 giờ sáng?','Chọn Hà Nội, đổi 22/6 sang 22/12.','Đọc được ngày dài, đêm ngắn và ngược lại.','Xem quy luật','info:daynight','F04'],
+['Bảng số liệu đang nói điều gì?','Điền so sánh ngày–đêm ở hai bán cầu.','Trình bày quy luật theo mùa.','Hoàn thành bảng','activity:table','F04'],
+['Em có thể theo dõi một ngày ở Sydney?','Mở cảnh, đổi Hà Nội thành Sydney.','Liên hệ vị trí quan sát với độ dài ngày.','Khám phá bầu trời','scene:sky','F05'],
+['Mặt Trời ở trên chân trời bao lâu?','Chạm Mọc, Cao nhất, Lặn và so sánh.','Kết nối cảnh chuyển động với số giờ ban ngày.','Theo dấu Mặt Trời','scene:sky','F04'],
+['Chìa khoá nào mở được bí mật bốn mùa?','Giải sáu câu hỏi để mở các mảnh từ.','Củng cố vai trò của trục nghiêng.','Mở mảnh đầu','code:0','F03'],
+['Mang gì cho chuyến đi tháng 7?','Chọn đồ, viết lý do rồi đối chiếu rubric.','Vận dụng kiến thức mùa vào chuẩn bị hành lý.','Chuẩn bị vali','suitcase','D01'],
+['Em đã giải mã được bao nhiêu?','Làm 10 câu, đọc giải thích sau mỗi câu.','Tự kiểm tra những kiến thức còn chưa chắc.','Bắt đầu kiểm tra','activity:quiz','E05'],
+['Một câu sai sẽ giúp em học điều gì?','Xem lời giải và trở về trang cần ôn.','Biết phần nào cần quan sát lại.','Xem lời giải','review','F02'],
+['Bây giờ em có còn nghĩ như lúc đầu?','Đối chiếu dự đoán và viết điều thay đổi.','Tự sửa quan niệm bằng bằng chứng.','Nhìn lại dự đoán','reflect','F03'],
+['Huy hiệu có kể hết điều em hiểu?','Tự đánh giá, xem lại hoạt động và xuất hồ sơ.','Nhận ra năng lực mình đã phát triển.','Mở hồ sơ','self','E05'],
+['Ngoài cuốn sách, em muốn khám phá gì?','Mở thư viện video, tài liệu và bài luyện thêm.','Biết tìm nguồn học liệu có tác giả rõ ràng.','Mở thư viện','resources','F06']];
+export const guides:PageGuide[]=rows.map(([hook,task,learn,cta,action,icon])=>({hook,task,learn,cta,action,icon}));

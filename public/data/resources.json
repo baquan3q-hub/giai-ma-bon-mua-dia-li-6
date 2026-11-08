@@ -1,0 +1,7 @@
+[
+ {"id":"nasa-seasons","type":"youtube","title":"NASA: Vì sao có các mùa?","url":"https://www.youtube.com/watch?v=M4BbW8AwJ0o","youtubeId":"M4BbW8AwJ0o","source":"NASA Video · NASA Now: Reasons for the Seasons","description":"Video tiếng Anh. Trước khi xem: tìm điều thay đổi ở góc chiếu và hai bán cầu; đọc bản tóm tắt tiếng Việt trong sách.","pages":[9,10,12,13,24]},
+ {"id":"spaceplace","type":"link","title":"Đọc thêm: nguyên nhân sinh ra mùa","url":"https://spaceplace.nasa.gov/seasons/en/","source":"NASA Space Place","description":"Bài đọc minh hoạ trục nghiêng và kiểm chứng quan niệm gần–xa (tiếng Anh).","pages":[8,12,13,24]},
+ {"id":"earth-model","type":"link","title":"Khám phá mô hình Trái Đất nguồn NASA","url":"https://science.nasa.gov/resource/earth-with-clouds-3d-model/","source":"NASA VTAD","description":"Nguồn mô hình 3D Trái Đất có mây dùng trong bản nâng cấp.","pages":[8,9,10,24]},
+ {"id":"extra-quiz","type":"link","title":"Luyện thêm và đối chiếu: câu hỏi về mùa","url":"https://www.ndbc.noaa.gov/education/seasons.shtml","source":"NOAA National Data Buoy Center","description":"Câu hỏi tự suy nghĩ và trang lời giải tiếng Anh; không phải bài kiểm tra có chấm điểm của lớp.","pages":[18,20,21,24]},
+ {"id":"solar-path","type":"link","title":"Tài liệu cho GV: vị trí Mặt Trời","url":"https://gml.noaa.gov/grad/solcalc/solareqns.PDF","source":"NOAA","description":"Tài liệu công thức tham khảo, dành cho GV/nhóm biên soạn.","pages":[14,15,16,17,24]}
+]
