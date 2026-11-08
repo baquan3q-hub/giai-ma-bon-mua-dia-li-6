@@ -1,5 +1,31 @@
 {
- "earthModel":{"file":"assets/models/earth-nasa.glb","title":"Earth with Clouds 3D Model","credit":"NASA VTAD","source":"https://science.nasa.gov/resource/earth-with-clouds-3d-model/","usage":"https://www.nasa.gov/nasa-brand-center/images-and-media/","changes":"Texture resized to 2048, converted to WebP, geometry retained; normalized in renderer","originalBytes":18928336,"webBytes":575016},
- "textures":{"files":["earth-day.jpg","earth-night.jpg","earth-clouds.jpg","sun.jpg"],"directory":"assets/textures/","credit":"Solar System Scope / INOVE","source":"https://www.solarsystemscope.com/textures/","license":"CC BY 4.0","licenseURL":"https://creativecommons.org/licenses/by/4.0/","changes":"Used as supplemental rendered surfaces; lighting and motion calculated by the app"},
- "aiArtwork":{"credit":"Generated for Giải mã bốn mùa with image_gen","purpose":"Fictional guide, decorative book art, travel objects and interface icons","notScientificData":true}
+  "earthModel": {
+    "file": "assets/models/earth-nasa.glb",
+    "title": "Earth with Clouds 3D Model",
+    "credit": "NASA VTAD",
+    "source": "https://science.nasa.gov/resource/earth-with-clouds-3d-model/",
+    "usage": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "changes": "Texture resized to 2048, converted to WebP, geometry retained; normalized in renderer",
+    "originalBytes": 18928336,
+    "webBytes": 575016
+  },
+  "textures": {
+    "files": [
+      "earth-day.jpg",
+      "earth-night.jpg",
+      "earth-clouds.jpg",
+      "sun.jpg"
+    ],
+    "directory": "assets/textures/",
+    "credit": "Solar System Scope / INOVE",
+    "source": "https://www.solarsystemscope.com/textures/",
+    "license": "CC BY 4.0",
+    "licenseURL": "https://creativecommons.org/licenses/by/4.0/",
+    "changes": "Re-encoded JPEG quality 82 for web; used as supplemental rendered surfaces. Lighting and motion calculated by the app."
+  },
+  "aiArtwork": {
+    "credit": "Generated for Giải mã bốn mùa with image_gen",
+    "purpose": "Fictional guide, decorative book art, travel objects and interface icons",
+    "notScientificData": true
+  }
 }
