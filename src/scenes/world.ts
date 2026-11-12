@@ -3,10 +3,13 @@ import {earthFrame} from './earth-frame';
 import * as THREE from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {VRButton} from 'three/addons/webxr/VRButton.js';
-import {axisVector,orbitPosition,rad,solarDirection,daylightPath,dateLabel,hours,dayLength} from '../science/earth';
+import {skyVector} from '../science/figures';
+import {axisVector,orbitPosition,rad,daylightPath,dateLabel,hours,dayLength} from '../science/earth';
 type State={day:number;lat:number;time:number};
 type Kind='orbit'|'observatory'|'sky';
 type Options={quality:'high'|'low';reduced:boolean;onSeen:(id:string)=>void};
+// Hướng Mặt Trời trong hệ Three.js (x Đông, y Lên, z Nam) — xem src/science/figures.ts.
+const sunDir=skyVector;
 export function createScene(host:HTMLElement,kind:Kind,initial:State,options:Options){
  const abort=new AbortController(),signal=abort.signal;
  const renderer=new THREE.WebGLRenderer({antialias:options.quality==='high',alpha:false});
@@ -42,15 +45,27 @@ export function createScene(host:HTMLElement,kind:Kind,initial:State,options:Opt
   for(let i=0;i<8;i++){const theta=i*Math.PI/4;const arch=new THREE.Mesh(new THREE.TorusGeometry(13,.09,8,64,Math.PI),mat('#ae7e39',.7));arch.rotation.y=theta;arch.position.y=-1.1;scene.add(arch);}
   const pedestal=new THREE.Mesh(new THREE.CylinderGeometry(5,5.2,.35,64),mat('#20364b',.5));pedestal.position.y=-.85;scene.add(pedestal);
  }
- const skySun=sphere(.65,new THREE.MeshBasicMaterial({color:'#fff1ae'}));const skyPath=new THREE.Line(new THREE.BufferGeometry(),new THREE.LineBasicMaterial({color:'#ffd375'}));
+ let horizon:THREE.Mesh|undefined;const skySun=sphere(.65,new THREE.MeshBasicMaterial({color:'#fff1ae'}));const skyPath=new THREE.Line(new THREE.BufferGeometry(),new THREE.LineBasicMaterial({color:'#ffd375'}));
  const compass=new THREE.Group();
  function textSprite(text:string,color='#f5e9cc',w=512){const canvas=document.createElement('canvas');canvas.width=w;canvas.height=128;const ctx=canvas.getContext('2d')!;ctx.fillStyle='#10233be8';ctx.fillRect(0,0,w,128);ctx.fillStyle=color;ctx.font='bold 32px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,w/2,64,w-20);const texture=new THREE.CanvasTexture(canvas);texture.colorSpace=THREE.SRGBColorSpace;textures.push(texture);const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:texture,depthTest:true,transparent:true}));sp.scale.set(w/180,128/180,1);return sp;}
  if(kind==='sky'){
   const sunMap=new THREE.TextureLoader().load(import.meta.env.BASE_URL+'assets/textures/sun.jpg');sunMap.colorSpace=THREE.SRGBColorSpace;textures.push(sunMap);(skySun.material as THREE.MeshBasicMaterial).map=sunMap;(skySun.material as THREE.MeshBasicMaterial).color.set('#ffffff');
   for(const object of [sun,halo,earthRoot,orbit,orbitPlane])object.visible=false;
   sunlight.visible=false;const ground=new THREE.Mesh(new THREE.PlaneGeometry(120,120),mat('#234e49'));ground.rotation.x=-Math.PI/2;ground.position.y=-.05;scene.add(ground);scene.add(new THREE.HemisphereLight('#c9efff','#4d6c5b',2));
-  for(let i=0;i<36;i++){const angle=i*Math.PI/18;const height=1+(i*7%9)*.28;const block=new THREE.Mesh(new THREE.BoxGeometry(1.2,height,1.2),mat(i%2?'#325864':'#517d83'));block.position.set(18*Math.sin(angle),height/2,18*Math.cos(angle));scene.add(block);}
-  for(const [text,x,z]of [['BẮC',0,12],['ĐÔNG',12,0],['NAM',0,-12],['TÂY',-12,0]] as const){const sp=textSprite(text);sp.position.set(x,2,z);compass.add(sp);}scene.add(compass,skySun,skyPath);
+  const blocks=new THREE.Group();scene.add(blocks);
+  for(let i=0;i<36;i++){const angle=i*Math.PI/18;const height=1+(i*7%9)*.28;const block=new THREE.Mesh(new THREE.BoxGeometry(1.2,height,1.2),mat(i%2?'#325864':'#517d83'));block.position.set(18*Math.sin(angle),height/2,18*Math.cos(angle));blocks.add(block);}
+  // Ảnh chân trời 360° thật (CC0, Poly Haven): chỉ mặt đất + hàng cây, phần trời trong suốt nên màu trời vẫn tính theo Mặt Trời.
+  // Tải lỗi thì giữ nền đơn giản (mặt đất + khối nhà) ở trên.
+  new THREE.TextureLoader().load(import.meta.env.BASE_URL+'assets/textures/horizon-band.webp',t=>{
+   if(disposed){t.dispose();return;}t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=renderer.capabilities.getMaxAnisotropy();textures.push(t);
+   const geo=new THREE.SphereGeometry(30,low?48:96,low?16:32,0,Math.PI*2,rad(60),rad(120));geo.scale(-1,1,1);
+   horizon=new THREE.Mesh(geo,new THREE.MeshBasicMaterial({map:t,alphaTest:.45}));horizon.position.set(0,1.65,0);scene.add(horizon);
+   ground.visible=false;blocks.visible=false;
+   // Mặt Trời và đường đi luôn vẽ trên ảnh (cây không che điểm mọc/lặn); khi dưới chân trời thì ẩn Mặt Trời.
+   for(const o of [skySun,skyPath]){(o.material as THREE.Material).depthTest=false;o.renderOrder=2;}
+   update(state);host.dataset.horizon='photo';
+  },undefined,()=>{host.dataset.horizon='simple';});
+  for(const [text,x,z]of [['BẮC',0,-12],['ĐÔNG',12,0],['NAM',0,12],['TÂY',-12,0]] as const){const sp=textSprite(text);sp.position.set(x,2,z);compass.add(sp);}scene.add(compass,skySun,skyPath);
  }
  const ui=document.createElement('div');ui.className='world-ui';host.append(ui);
  const mode=document.createElement('button');mode.textContent=kind==='sky'?'Kéo để nhìn quanh':'Khám phá mô hình';mode.className='world-mode';ui.append(mode);
@@ -59,7 +74,7 @@ export function createScene(host:HTMLElement,kind:Kind,initial:State,options:Opt
  const hint=document.createElement('div');hint.className='world-hint';hint.textContent='Kéo để nhìn quanh · Chạm điểm chú thích';ui.append(hint);
  let rotationPaused=options.reduced;let state={...initial},disposed=false,modelMode=kind==='orbit',yaw=0,pitch=0,lastDay=-1,lastLat=100,active:string|undefined;
  const defaultPos=kind==='sky'?new THREE.Vector3(0,1.65,0):kind==='observatory'?new THREE.Vector3(0,2.4,9):new THREE.Vector3(0,6,9);
- function reset(){camera.position.copy(defaultPos);controls.target.set(0,0,0);camera.lookAt(kind==='sky'?new THREE.Vector3(0,2,-12):new THREE.Vector3(0,0,0));const e=new THREE.Euler().setFromQuaternion(camera.quaternion,'YXZ');yaw=e.y;pitch=e.x;if(modelMode)controls.update();}
+ function reset(){camera.position.copy(defaultPos);controls.target.set(0,0,0);camera.lookAt(kind==='sky'?new THREE.Vector3(0,2,12):new THREE.Vector3(0,0,0));const e=new THREE.Euler().setFromQuaternion(camera.quaternion,'YXZ');yaw=e.y;pitch=e.x;if(modelMode)controls.update();}
  reset();controls.enabled=modelMode;
  const real=kind!=='sky'?addRealisticSurfaces(globe,sun,host,low,()=>disposed,t=>textures.push(t)):undefined;
  if(kind!=='sky'){
@@ -78,9 +93,9 @@ export function createScene(host:HTMLElement,kind:Kind,initial:State,options:Opt
  const addMarker=(id:string,title:string,text:string,pos:()=>THREE.Vector3)=>{const el=document.createElement('button');el.className='world-marker';el.textContent=title;el.setAttribute('aria-label',`Chú thích: ${title}`);host.append(el);const sprite=textSprite(title);sprite.scale.multiplyScalar(.45);scene.add(sprite);sprite.visible=false;const marker={id,title,text,pos,el,sprite};markers.push(marker);el.addEventListener('click',()=>select(marker),{signal});};
  function select(m:Marker){active=m.id;options.onSeen(m.id);detailBox.hidden=false;detailBox.textContent=m.text;detailBox.setAttribute('role','status');if(m.id==='axis'||m.id==='direction')pole.material.color.set('#ffffff');if(kind==='sky'){const times=daylightPath(state.day,state.lat);state.time=m.id==='rise'?times.rise:m.id==='set'?times.set:12;update(state);const slider=host.closest('dialog')?.querySelector<HTMLInputElement>('[data-input="time"]');if(slider){slider.value=String(state.time);slider.dispatchEvent(new Event('input',{bubbles:true}));}}}
  if(kind==='sky'){
-  addMarker('rise','Mọc','Mặt Trời lên đường chân trời. Chạm để xem thời điểm mọc trong mô hình.',()=>new THREE.Vector3(...solarDirection(state.day,state.lat,daylightPath(state.day,state.lat).rise)).multiplyScalar(15).add(new THREE.Vector3(0,1.65,0)));
-  addMarker('noon','Cao nhất','Giữa ngày theo giờ Mặt Trời địa phương; không nhất thiết là 12 giờ đồng hồ.',()=>new THREE.Vector3(...solarDirection(state.day,state.lat,12)).multiplyScalar(15).add(new THREE.Vector3(0,1.65,0)));
-  addMarker('set','Lặn','Mặt Trời xuống dưới đường chân trời. So sánh khoảng thời gian từ mọc đến lặn.',()=>new THREE.Vector3(...solarDirection(state.day,state.lat,daylightPath(state.day,state.lat).set)).multiplyScalar(15).add(new THREE.Vector3(0,1.65,0)));
+  addMarker('rise','Mọc','Mặt Trời lên đường chân trời. Chạm để xem thời điểm mọc trong mô hình.',()=>new THREE.Vector3(...sunDir(state.day,state.lat,daylightPath(state.day,state.lat).rise)).multiplyScalar(15).add(new THREE.Vector3(0,1.65,0)));
+  addMarker('noon','Cao nhất','Giữa ngày theo giờ Mặt Trời địa phương; không nhất thiết là 12 giờ đồng hồ.',()=>new THREE.Vector3(...sunDir(state.day,state.lat,12)).multiplyScalar(15).add(new THREE.Vector3(0,1.65,0)));
+  addMarker('set','Lặn','Mặt Trời xuống dưới đường chân trời. So sánh khoảng thời gian từ mọc đến lặn.',()=>new THREE.Vector3(...sunDir(state.day,state.lat,daylightPath(state.day,state.lat).set)).multiplyScalar(15).add(new THREE.Vector3(0,1.65,0)));
  }else{
   addMarker('sun','Mặt Trời','Nguồn ánh sáng và nhiệt của Trái Đất.',()=>new THREE.Vector3(0,.9,0));
   addMarker('orbit','Quỹ đạo','Quỹ đạo elip gần tròn. Kích thước các thiên thể đã được phóng đại để nhìn rõ.',()=>new THREE.Vector3(3.5,0,1));
@@ -95,8 +110,8 @@ export function createScene(host:HTMLElement,kind:Kind,initial:State,options:Opt
  renderer.domElement.addEventListener('keydown',e=>{if(modelMode)return;const keys:Record<string,[number,number]>={ArrowLeft:[.1,0],ArrowRight:[-.1,0],ArrowUp:[0,.1],ArrowDown:[0,-.1]};if(keys[e.key]){e.preventDefault();e.stopPropagation();yaw+=keys[e.key][0];pitch=Math.max(-1.4,Math.min(1.4,pitch+keys[e.key][1]));camera.quaternion.setFromEuler(new THREE.Euler(pitch,yaw,0,'YXZ'));}},{signal});
  function update(s:State){const last=earthRoot.position.clone();state={...s};earth.move(s.day);if(controls.target.distanceTo(last)<.1&&controls.target.length()>1){const delta=earthRoot.position.clone().sub(last);controls.target.add(delta);camera.position.add(delta);}status.textContent=kind==='sky'?`${s.lat<0?'Sydney':'Hà Nội'} · ${dateLabel(s.day)} · Ngày ${hours(dayLength(s.day,s.lat))}`:`${dateLabel(s.day)} · Trục giữ hướng`;
   if(kind==='sky'){
-   skySun.position.set(...solarDirection(s.day,s.lat,s.time)).multiplyScalar(24).add(new THREE.Vector3(0,1.65,0));const brightness=Math.max(0,Math.min(1,(solarDirection(s.day,s.lat,s.time)[1]+.10)*2));scene.background=new THREE.Color('#071327').lerp(new THREE.Color('#75b7d2'),brightness);stars.material.opacity=1-brightness;stars.material.transparent=true;
-   if(lastDay!==s.day||lastLat!==s.lat){const path=daylightPath(s.day,s.lat);const points=[];for(let i=0;i<=80;i++)points.push(new THREE.Vector3(...solarDirection(s.day,s.lat,path.rise+(path.set-path.rise)*i/80)).multiplyScalar(23).add(new THREE.Vector3(0,1.65,0)));skyPath.geometry.dispose();skyPath.geometry=new THREE.BufferGeometry().setFromPoints(points);lastDay=s.day;lastLat=s.lat;}
+   skySun.position.set(...sunDir(s.day,s.lat,s.time)).multiplyScalar(24).add(new THREE.Vector3(0,1.65,0));const brightness=Math.max(0,Math.min(1,(sunDir(s.day,s.lat,s.time)[1]+.10)*2));scene.background=new THREE.Color('#071327').lerp(new THREE.Color('#75b7d2'),brightness);skySun.visible=sunDir(s.day,s.lat,s.time)[1]>-.02;if(horizon)(horizon.material as THREE.MeshBasicMaterial).color.set('#1d2a40').lerp(new THREE.Color('#ffffff'),.25+.75*brightness);stars.material.opacity=1-brightness;stars.material.transparent=true;
+   if(lastDay!==s.day||lastLat!==s.lat){const path=daylightPath(s.day,s.lat);const points=[];for(let i=0;i<=80;i++)points.push(new THREE.Vector3(...sunDir(s.day,s.lat,path.rise+(path.set-path.rise)*i/80)).multiplyScalar(23).add(new THREE.Vector3(0,1.65,0)));skyPath.geometry.dispose();skyPath.geometry=new THREE.BufferGeometry().setFromPoints(points);lastDay=s.day;lastLat=s.lat;}
   }
  }
  update(state);

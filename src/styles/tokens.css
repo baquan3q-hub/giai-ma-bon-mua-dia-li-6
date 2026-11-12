@@ -1,0 +1,8 @@
+/* Thang đo v1.3: chữ nội dung ≥16px, nhãn ≥12px, vùng chạm ≥44px. */
+:root{
+  --fs-body:16px;--fs-label:12px;--fs-title:clamp(20px,2vw,27px);
+  --tap:44px;--gap:10px;--radius:14px;
+  --navy:#0b172a;--navy-2:#16314d;--gold:#f5c36b;--gold-ink:#8a6220;
+  --paper:#f6f3eb;--card:#fffdf7;--line:#d9d6c8;--ink:#233951;
+  --warm:#f6e3b4;--cool:#cfe3ec;
+}
