@@ -5,7 +5,11 @@ export const dates=[{label:'21/3',day:80},{label:'22/6',day:173},{label:'23/9',d
 export function declination(day:number){return EPSILON*Math.sin(2*Math.PI*(day-80)/365);}
 export function dayLength(day:number,lat:number){
   if(!Number.isFinite(day)||!Number.isFinite(lat)||Math.abs(lat)>90)throw new RangeError('Ngày hoặc vĩ độ không hợp lệ');
-  const c=-Math.tan(rad(lat))*Math.tan(rad(declination(day)));
+  return dayLengthAt(declination(day),lat);
+}
+// Số giờ ban ngày khi biết xích vĩ Mặt Trời (độ); dùng cho cả thí nghiệm “nếu trục nghiêng khác”.
+export function dayLengthAt(decl:number,lat:number){
+  const c=-Math.tan(rad(lat))*Math.tan(rad(decl));
   return c>=1?0:c<=-1?24:2*deg(Math.acos(c))/15;
 }
 export function hours(value:number){const m=Math.round(value*60);return `${Math.floor(m/60)} giờ ${String(m%60).padStart(2,'0')} phút`;}
