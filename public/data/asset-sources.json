@@ -14,7 +14,8 @@
       "earth-day.jpg",
       "earth-night.jpg",
       "earth-clouds.jpg",
-      "sun.jpg"
+      "sun.jpg",
+      "sun-1k.jpg"
     ],
     "directory": "assets/textures/",
     "credit": "Solar System Scope / INOVE",
@@ -36,7 +37,8 @@
     {
       "id": "horizon",
       "files": [
-        "assets/textures/horizon-band.webp"
+        "assets/textures/horizon-band.webp",
+        "assets/textures/horizon-band-2k.webp"
       ],
       "usedOn": "Trang 16 · cảnh bầu trời 360°",
       "title": "Round Platform (HDRI, bản tonemapped JPG 8K)",

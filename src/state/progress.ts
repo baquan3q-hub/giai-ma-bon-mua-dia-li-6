@@ -2,7 +2,9 @@ export type StationId=0|1|2|3|4;
 // layout: 18 = bố cục v1.4. Tiến độ v1.3 (24 trang) không có trường này và được đổi trang khi đọc.
 export interface ProgressV1 {version:1;layout?:18;page:number;answers:Record<string,number>;predictions:number[]|null;question:string;reflection:string;revised:number[];self:number[];suitcase:string[];reason:string;rubric:number[];seen:string[];scene:{day:number;lat:number;time:number};attempts:{answers:number[];score:number;passed:boolean}[];reducedMotion:boolean;quality:'high'|'low';obs?:string[]}
 export const KEY='giai-ma-bon-mua:progress:v1';
-export const fresh=():ProgressV1=>({version:1,layout:18,page:1,answers:{},predictions:null,question:'',reflection:'',revised:[],self:[],suitcase:[],reason:'',rubric:[],seen:[],scene:{day:173,lat:21,time:12},attempts:[],reducedMotion:false,quality:'high'});
+// Chất lượng 3D mặc định: máy ít RAM/ít nhân hoặc màn hình điện thoại → thấp (người dùng đổi được trong menu ⋯).
+export function defaultQuality():'high'|'low'{try{const n:any=(globalThis as any).navigator;if(!n)return 'high';const small=(globalThis as any).matchMedia?.('(max-width:700px)')?.matches;return (n.deviceMemory&&n.deviceMemory<=4)||(n.hardwareConcurrency&&n.hardwareConcurrency<=4)||small?'low':'high';}catch{return 'high';}}
+export const fresh=():ProgressV1=>({version:1,layout:18,page:1,answers:{},predictions:null,question:'',reflection:'',revised:[],self:[],suitcase:[],reason:'',rubric:[],seen:[],scene:{day:173,lat:21,time:12},attempts:[],reducedMotion:false,quality:defaultQuality()});
 // Trang v1.3 (chỉ số 0–23) → trang v1.4. Xem docs/storyboard-18-trang.md, mục “Đổi tiến độ cũ”.
 export const OLD_TO_NEW=[1,2,2,2,2,3,4,6,7,6,7,8,9,10,10,11,11,12,13,14,14,15,16,18] as const;
 export const migratePage=(old:number)=>OLD_TO_NEW[old-1];

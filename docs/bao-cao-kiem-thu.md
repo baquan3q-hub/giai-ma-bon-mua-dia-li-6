@@ -84,3 +84,10 @@ GitHub Actions chạy test/build/deploy thành công. Đã mở link HTTPS công
 - Bìa giữ 2 ghi chú đã biết: không có nút chính (theo thiết kế); quỹ đạo trang trí bị cắt ở khổ ngang.
 - Cảnh 360° ở 375×812: kéo xoay được góc nhìn (`touch-action:none`, Pointer Events), ảnh chân trời tải được.
 - Tr. 24 hiện “Phiên bản 1.3.0” (đọc từ `config.json`), không còn dòng phiên bản cũ.
+
+# Bản 1.4.0 (23/11/2026, chạy local)
+
+- Rút còn 18 trang theo `storyboard-18-trang.md`; `resources.json` đã đánh lại số trang.
+- Ẩn chữ “sẽ có ở bản sau” (tab Hoạt hình tr. 17, hộp thoại GV); chặn lỗi khi thiếu câu hỏi hoặc cấu hình Form.
+- Hiệu năng: chất lượng 3D mặc định theo thiết bị; mức cao chỉ tải mô hình NASA (ảnh bề mặt chỉ tải khi mô hình lỗi); mức thấp dùng chân trời 2048px và Mặt Trời 1024px; cảnh ngừng vẽ khi khuất màn hình.
+- Đối chiếu KHBD và đề xuất: `../reports/Rà soát ebook Giải mã bốn mùa.md`.

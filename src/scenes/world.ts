@@ -49,15 +49,15 @@ export function createScene(host:HTMLElement,kind:Kind,initial:State,options:Opt
  const compass=new THREE.Group();
  function textSprite(text:string,color='#f5e9cc',w=512){const canvas=document.createElement('canvas');canvas.width=w;canvas.height=128;const ctx=canvas.getContext('2d')!;ctx.fillStyle='#10233be8';ctx.fillRect(0,0,w,128);ctx.fillStyle=color;ctx.font='bold 32px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,w/2,64,w-20);const texture=new THREE.CanvasTexture(canvas);texture.colorSpace=THREE.SRGBColorSpace;textures.push(texture);const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:texture,depthTest:true,transparent:true}));sp.scale.set(w/180,128/180,1);return sp;}
  if(kind==='sky'){
-  const sunMap=new THREE.TextureLoader().load(import.meta.env.BASE_URL+'assets/textures/sun.jpg');sunMap.colorSpace=THREE.SRGBColorSpace;textures.push(sunMap);(skySun.material as THREE.MeshBasicMaterial).map=sunMap;(skySun.material as THREE.MeshBasicMaterial).color.set('#ffffff');
+  const sunMap=new THREE.TextureLoader().load(import.meta.env.BASE_URL+'assets/textures/sun-1k.jpg');sunMap.colorSpace=THREE.SRGBColorSpace;textures.push(sunMap);(skySun.material as THREE.MeshBasicMaterial).map=sunMap;(skySun.material as THREE.MeshBasicMaterial).color.set('#ffffff');
   for(const object of [sun,halo,earthRoot,orbit,orbitPlane])object.visible=false;
   sunlight.visible=false;const ground=new THREE.Mesh(new THREE.PlaneGeometry(120,120),mat('#234e49'));ground.rotation.x=-Math.PI/2;ground.position.y=-.05;scene.add(ground);scene.add(new THREE.HemisphereLight('#c9efff','#4d6c5b',2));
   const blocks=new THREE.Group();scene.add(blocks);
   for(let i=0;i<36;i++){const angle=i*Math.PI/18;const height=1+(i*7%9)*.28;const block=new THREE.Mesh(new THREE.BoxGeometry(1.2,height,1.2),mat(i%2?'#325864':'#517d83'));block.position.set(18*Math.sin(angle),height/2,18*Math.cos(angle));blocks.add(block);}
   // Ảnh chân trời 360° thật (CC0, Poly Haven): chỉ mặt đất + hàng cây, phần trời trong suốt nên màu trời vẫn tính theo Mặt Trời.
   // Tải lỗi thì giữ nền đơn giản (mặt đất + khối nhà) ở trên.
-  new THREE.TextureLoader().load(import.meta.env.BASE_URL+'assets/textures/horizon-band.webp',t=>{
-   if(disposed){t.dispose();return;}t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=renderer.capabilities.getMaxAnisotropy();textures.push(t);
+  new THREE.TextureLoader().load(import.meta.env.BASE_URL+`assets/textures/${low?'horizon-band-2k':'horizon-band'}.webp`,t=>{
+   if(disposed){t.dispose();return;}t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=low?1:Math.min(8,renderer.capabilities.getMaxAnisotropy());textures.push(t);
    const geo=new THREE.SphereGeometry(30,low?48:96,low?16:32,0,Math.PI*2,rad(60),rad(120));geo.scale(-1,1,1);
    horizon=new THREE.Mesh(geo,new THREE.MeshBasicMaterial({map:t,alphaTest:.45}));horizon.position.set(0,1.65,0);scene.add(horizon);
    ground.visible=false;blocks.visible=false;
@@ -108,8 +108,10 @@ export function createScene(host:HTMLElement,kind:Kind,initial:State,options:Opt
  }
  update(state);
  const resize=new ResizeObserver(()=>{const w=host.clientWidth,h=Math.max(200,host.clientHeight);const was=camera.aspect;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();if(kind==='orbit'&&!close&&Math.abs(was-camera.aspect)>.01){camera.position.copy(fit());controls.target.set(0,0,0);controls.update();}measure();});resize.observe(host);
- const clock=new THREE.Clock();const projected=new THREE.Vector3();let frame=0;
- renderer.setAnimationLoop(()=>{if(disposed||document.hidden)return;const dt=Math.min(clock.getDelta(),.05);if(!rotationPaused){globe.rotation.y+=dt*.12;real?.tick(dt);sun.rotation.y+=dt*.016;halo.scale.setScalar(1+Math.sin(clock.elapsedTime*.7)*.025);}if(controls.enabled&&!renderer.xr.isPresenting)controls.update();
+ const clock=new THREE.Clock();const projected=new THREE.Vector3();let frame=0,onScreen=true;
+ // Dừng vẽ khi khung 3D khuất khỏi màn hình (cuộn trang) để đỡ tốn pin trên điện thoại.
+ const seen=typeof IntersectionObserver==='undefined'?undefined:new IntersectionObserver(([e])=>{onScreen=e.isIntersecting;if(onScreen)clock.getDelta();});seen?.observe(host);
+ renderer.setAnimationLoop(()=>{if(disposed||document.hidden||(!onScreen&&!renderer.xr.isPresenting))return;const dt=Math.min(clock.getDelta(),.05);if(!rotationPaused){globe.rotation.y+=dt*.12;real?.tick(dt);sun.rotation.y+=dt*.016;halo.scale.setScalar(1+Math.sin(clock.elapsedTime*.7)*.025);}if(controls.enabled&&!renderer.xr.isPresenting)controls.update();
   const xr=renderer.xr.isPresenting;ui.hidden=xr;
   if(frame++%2===0)for(const marker of markers){const pos=marker.pos();marker.sprite.position.copy(pos);marker.sprite.visible=xr;projected.copy(pos).project(camera);let visible=!xr&&projected.z<1&&projected.z>-1&&Math.abs(projected.x)<.95&&Math.abs(projected.y)<.88;
    if(visible&&kind!=='sky'){const direction=pos.clone().sub(camera.position);const distance=direction.length();raycaster.set(camera.position,direction.normalize());const hits=raycaster.intersectObject(globe,true);if(hits[0]&&hits[0].distance<distance-.35)visible=false;}
@@ -124,5 +126,5 @@ export function createScene(host:HTMLElement,kind:Kind,initial:State,options:Opt
  renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();renderer.setAnimationLoop(null);status.textContent='Đồ hoạ bị gián đoạn. Đóng cảnh và mở lại, hoặc dùng danh sách chú thích 2D.';},{signal});
  function closeUp(on:boolean){if(kind!=='orbit')return;if(!on){reset();return;}close=true;const e=earthRoot.position.clone();controls.target.copy(e);camera.position.copy(closeView(e));controls.update();measure();hint.textContent='Kéo để xoay quanh Trái Đất';}
  function focus(id:string){const m=markers.find(m=>m.id===id);if(!m)return;select(m);controls.enabled=false;modelMode=false;camera.lookAt(m.pos());const e=new THREE.Euler().setFromQuaternion(camera.quaternion,'YXZ');yaw=e.y;pitch=e.x;}
- return {update,reset,gyro,focus,closeUp,dispose(){disposed=true;abort.abort();resize.disconnect();controls.dispose();renderer.setAnimationLoop(null);scene.traverse(o=>{if(o instanceof THREE.Mesh||o instanceof THREE.Line||o instanceof THREE.Points){o.geometry.dispose();const materials=Array.isArray(o.material)?o.material:[o.material];materials.forEach(m=>m.dispose());}});textures.forEach(t=>t.dispose());renderer.dispose();renderer.forceContextLoss();host.replaceChildren();}};
+ return {update,reset,gyro,focus,closeUp,dispose(){disposed=true;abort.abort();resize.disconnect();seen?.disconnect();controls.dispose();renderer.setAnimationLoop(null);scene.traverse(o=>{if(o instanceof THREE.Mesh||o instanceof THREE.Line||o instanceof THREE.Points){o.geometry.dispose();const materials=Array.isArray(o.material)?o.material:[o.material];materials.forEach(m=>m.dispose());}else if(o instanceof THREE.Sprite)o.material.dispose();});textures.forEach(t=>t.dispose());renderer.dispose();renderer.forceContextLoss();host.replaceChildren();}};
 }

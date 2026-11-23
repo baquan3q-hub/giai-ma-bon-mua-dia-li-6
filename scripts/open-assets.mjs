@@ -14,6 +14,7 @@ const SRC='../anh-goc';
   o[j]=r;o[j+1]=g;o[j+2]=b;o[j+3]=a;
  }
  await sharp(o,{raw:{width:W,height:h,channels:4}}).webp({quality:72,alphaQuality:80,effort:6}).toFile('public/assets/textures/horizon-band.webp');
+ await sharp('public/assets/textures/horizon-band.webp').resize(2048).webp({quality:72,alphaQuality:80,effort:6}).toFile('public/assets/textures/horizon-band-2k.webp');
  if(process.argv.includes('--preview'))await sharp(o,{raw:{width:W,height:h,channels:4}}).flatten({background:'#e0457b'}).resize(1600).png().toFile(`${SRC}/textures/horizon-band-preview.png`);
  console.log('horizon-band.webp',W,'x',h,'· chân trời ở hàng',hz,'· góc trên',TOP+'°');
 }

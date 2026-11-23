@@ -1,6 +1,6 @@
 # Đặc tả giao diện
 
-24 trang, bìa đứng riêng và 11 cặp trang. Từ 1100px, tỉ lệ ngang ≥5/4, hiển thị cặp; màn hình hẹp đọc một trang.
+18 trang (v1.4), bìa đứng riêng và 8 cặp trang. Bố cục từng trang: `storyboard-18-trang.md`. Từ 1100px, tỉ lệ ngang ≥5/4, hiển thị cặp; màn hình hẹp đọc một trang.
 
 Một ảnh nền dùng chung cho cặp, vùng gáy an toàn 10%; lớp HTML và SVG tách biệt. Điện thoại cắt đúng nửa trái/phải của ảnh. Không thu nhỏ cả trang bằng transform. Nội dung chính 16px trở lên, nút chính ≥44px; nhãn/ghi chú nhỏ hơn. Font đóng gói cùng app: Be Vietnam Pro và Lexend.
 

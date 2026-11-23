@@ -1,6 +1,6 @@
 # Giải mã bốn mùa
 
-Ebook tương tác 24 trang cho Bài 8, Lịch sử và Địa lí 6, Kết nối tri thức. Có sách một/hai trang, 30 ảnh minh hoạ AI, mô phỏng quỹ đạo, khám phá 360°, đồng hồ ngày đêm, trò chơi và bài kiểm tra. Chạy không đăng nhập; cần kết nối để tải học liệu lần đầu.
+Ebook tương tác 18 trang (bản 1.4.0) cho Bài 8, Lịch sử và Địa lí 6, Kết nối tri thức. Có sách một/hai trang, 30 ảnh minh hoạ AI, mô phỏng quỹ đạo, khám phá 360°, đồng hồ ngày đêm, trò chơi và bài kiểm tra. Chạy không đăng nhập; cần kết nối để tải học liệu lần đầu.
 
 ## Chạy trên Windows
 
@@ -11,14 +11,14 @@ npm ci
 npm run dev
 ```
 
-Mở **http://localhost:5174/**. Trạm 0 bắt đầu trang 6; mục lục trang 5. Bìa đứng riêng; từ 1100px và màn hình ngang hiển thị hai trang. Điện thoại một trang và có thể cuộn dọc để giữ chữ đủ lớn.
+Mở **http://localhost:5174/**. Phần A Trước giờ ở trang 2–5; Trạm 1 bắt đầu trang 6; mục lục ở nút Mục lục góc trên. Storyboard: `docs/storyboard-18-trang.md`. Bìa đứng riêng; từ 1100px và màn hình ngang hiển thị hai trang. Điện thoại một trang và có thể cuộn dọc để giữ chữ đủ lớn.
 
 ## Thử trên điện thoại
 
 1. Máy tính và điện thoại cùng Wi-Fi.
 2. Giữ terminal chạy; mở địa chỉ **Network** Vite in ra (ví dụ `http://192.168.1.13:5174/`). Không nhập localhost trên điện thoại.
 3. Nếu không mở được, kiểm tra quyền truy cập mạng riêng của Node/Vite và Wi-Fi có cách ly thiết bị hay không. Không tắt toàn bộ tường lửa.
-4. Thử trang 7, 8, 12, 14, 16 và bài kiểm tra. Tải lại để kiểm tra lưu tiến độ.
+4. Thử trang 6 (quỹ đạo), 8 (mùa hai nửa cầu), 10 (ngày – đêm), 11 (bầu trời 360°) và bài kiểm tra trang 14. Tải lại để kiểm tra lưu tiến độ.
 5. Cảm biến và WebXR cần HTTPS. Bản LAN HTTP chỉ dùng kiểm tra chạm, kéo, bố cục và công thức.
 
 ## Kiểm tra bản phát hành
@@ -31,9 +31,11 @@ npm run preview
 
 `dist/` là bản phát hành. Ảnh, font, câu hỏi đóng gói cùng app; Three.js chỉ tải khi mở mô hình. Cấu hình đường dẫn tương đối dùng được ở thư mục con GitHub Pages.
 
+Chất lượng 3D mặc định theo thiết bị: máy ≤ 4 GB RAM, ≤ 4 nhân hoặc màn hình ≤ 700px dùng mức thấp (ảnh 2K, không tải mô hình NASA); đổi trong menu ⋯. Cảnh 3D ngừng vẽ khi khuất khỏi màn hình.
+
 ## Chỉnh nội dung
 
-- `src/content/book.ts`: tiêu đề, lời dẫn, mục lục 24 trang.
+- `src/content/book.ts`: tiêu đề, lời dẫn, mục lục 18 trang.
 - `public/data/questions.json`: toàn bộ câu hỏi, đáp án và giải thích.
 - `public/data/config.json`: thông tin nhóm, video và Google Form.
 - `src/science/earth.ts`: công thức gần đúng.

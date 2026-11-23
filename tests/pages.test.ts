@@ -25,7 +25,7 @@ function variants(p:number):[string,ProgressV1,UI][]{const out:[string,ProgressV
  if(p===8){const s=fresh();const x=u();x.north=0;x.south=1;x.seasonMsg='Chưa đúng ở nửa cầu Bắc.';out.push(['đang ghép',s,x]);const d=doneState();delete d.answers.why;out.push(['câu vì sao',d,u()]);}
  if(p===10){const d=doneState();delete d.answers.poles;out.push(['đủ 10 ô',d,u()]);}
  if(p===14){const x=u();x.quiz={order:[0,1,2,3,4,5,6,7,8,9],pos:2,chosen:1,shown:true,answers:[0,0]};out.push(['đang làm',fresh(),x]);const s=fresh();s.attempts=[{answers:[0,0,0,0,0,0,0,0,0,0],score:2,passed:false}];out.push(['chưa đạt',s,u()]);}
- if(p===17){for(const tab of ['practice','anim'] as const){const x=u();x.deck.tab=tab;x.deck.pool=['orbit-1','q1','truth-1','table-1','journal-1'];x.deck.chosen=tab==='practice'?0:null;out.push([tab,fresh(),x]);}}
+ if(p===17){for(const tab of ['practice'] as const){const x=u();x.deck.tab=tab;x.deck.pool=['orbit-1','q1','truth-1','table-1','journal-1'];x.deck.chosen=tab==='practice'?0:null;out.push([tab,fresh(),x]);}}
  return out;}
 
 test('Mỗi màn hình: ≤ 1 nút chính, ≤ 3 điều khiển, ≤ 60 chữ',()=>{
