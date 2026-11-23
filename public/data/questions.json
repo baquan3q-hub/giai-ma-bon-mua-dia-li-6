@@ -91,16 +91,29 @@
       "explanation": "Đầu trục luôn chỉ cùng một hướng trong không gian ở mô hình một năm."
     }
   ],
+  "why": [
+    {
+      "id": "why",
+      "prompt": "Vì sao có mùa?",
+      "options": [
+        "Do Trái Đất lúc gần lúc xa Mặt Trời",
+        "Do trục nghiêng và không đổi hướng khi chuyển động quanh Mặt Trời",
+        "Do Mặt Trời lúc nóng lúc nguội"
+      ],
+      "correct": 1,
+      "explanation": "Trục nghiêng và giữ hướng nên hai nửa cầu lần lượt ngả về phía Mặt Trời. Nửa cầu ngả về Mặt Trời là mùa nóng."
+    }
+  ],
   "distance": [
     {
       "id": "distance",
-      "prompt": "Bằng chứng nào bác bỏ giả thuyết gần–xa?",
+      "prompt": "Tháng 7 Trái Đất gần Mặt Trời nhất nên nửa cầu Bắc là mùa hè.",
       "options": [
-        "Hai bán cầu trái mùa dù cùng khoảng cách đến Mặt Trời",
-        "Hai bán cầu luôn cùng mùa"
+        "Đúng",
+        "Sai"
       ],
-      "correct": 0,
-      "explanation": "Khoảng cách là chung cho cả Trái Đất, nhưng tháng 7 Bắc nóng và Nam lạnh. Nguyên nhân chính là trục nghiêng và giữ hướng."
+      "correct": 1,
+      "explanation": "Sai. Đầu tháng 1 Trái Đất mới ở gần Mặt Trời nhất, khi đó nửa cầu Bắc đang mùa lạnh. Khoảng cách thay đổi rất ít và chung cho cả Trái Đất."
     }
   ],
   "truth": [
@@ -195,6 +208,18 @@
       ],
       "correct": 0,
       "explanation": "Bán cầu Nam ngả về Mặt Trời vào 22/12."
+    }
+  ],
+  "poles": [
+    {
+      "id": "poles",
+      "prompt": "Càng về phía cực, chênh lệch giữa ngày và đêm càng…",
+      "options": [
+        "Lớn",
+        "Nhỏ"
+      ],
+      "correct": 0,
+      "explanation": "Đúng: Xích đạo ngày ≈ đêm, Hà Nội chênh khoảng 2,5 giờ, gần vòng cực Bắc chênh hơn 20 giờ."
     }
   ],
   "code": [
@@ -380,5 +405,55 @@
       "correct": 3,
       "explanation": "Càng về phía cực, chênh lệch ngày đêm càng lớn."
     }
+  ],
+  "flashcards": [
+    [
+      "Quỹ đạo Trái Đất có hình gì?",
+      "Elip gần tròn."
+    ],
+    [
+      "Hướng chuyển động quanh Mặt Trời?",
+      "Từ tây sang đông."
+    ],
+    [
+      "Một vòng quanh Mặt Trời mất bao lâu?",
+      "365 ngày 6 giờ."
+    ],
+    [
+      "Trục Trái Đất nghiêng bao nhiêu?",
+      "66°33′ so với mặt phẳng quỹ đạo, không đổi hướng."
+    ],
+    [
+      "22/6, nửa cầu nào ngả về Mặt Trời?",
+      "Nửa cầu Bắc, nên đang mùa nóng."
+    ],
+    [
+      "22/12, nửa cầu nào ngả về Mặt Trời?",
+      "Nửa cầu Nam, nên đang mùa nóng."
+    ],
+    [
+      "21/3 và 23/9 có gì đặc biệt?",
+      "Mặt Trời chiếu thẳng góc Xích đạo."
+    ],
+    [
+      "Vì sao có mùa?",
+      "Trục nghiêng và không đổi hướng khi chuyển động quanh Mặt Trời."
+    ],
+    [
+      "Có phải mùa hè vì Trái Đất gần Mặt Trời?",
+      "Không. Tháng 1 gần nhất mà nửa cầu Bắc đang lạnh."
+    ],
+    [
+      "Mùa nóng thì ngày hay đêm dài hơn?",
+      "Ngày dài hơn đêm."
+    ],
+    [
+      "Ở Xích đạo, ngày và đêm thế nào?",
+      "Gần bằng nhau, khoảng 12 giờ, quanh năm."
+    ],
+    [
+      "Càng về cực, chênh lệch ngày – đêm thế nào?",
+      "Càng lớn; từ vòng cực về cực có ngày hoặc đêm 24 giờ."
+    ]
   ]
 }

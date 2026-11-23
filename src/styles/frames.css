@@ -336,7 +336,7 @@ button.fr-scene:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 .fr-orbit{display:flex;flex-direction:column;gap:8px}
 .fr-orbit-svg{flex:1 1 0;width:100%;min-height:0}
 .orbit-pos{cursor:pointer}
-.orbit-pos:hover>circle:nth-child(3){stroke:#d49b2f;stroke-width:2}
+.orbit-pos:hover>circle.e{stroke:#ff5a36;stroke-width:3}
 .fr-season-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0}
 .fr-season-row .fr-half{flex-direction:row;justify-content:flex-start;gap:10px;padding:6px 12px;text-align:left}
 .fr-season-row .fr-card-icon{flex:none;width:44px;height:44px;min-height:0}
