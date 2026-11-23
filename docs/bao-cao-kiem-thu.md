@@ -91,3 +91,11 @@ GitHub Actions chạy test/build/deploy thành công. Đã mở link HTTPS công
 - Ẩn chữ “sẽ có ở bản sau” (tab Hoạt hình tr. 17, hộp thoại GV); chặn lỗi khi thiếu câu hỏi hoặc cấu hình Form.
 - Hiệu năng: chất lượng 3D mặc định theo thiết bị; mức cao chỉ tải mô hình NASA (ảnh bề mặt chỉ tải khi mô hình lỗi); mức thấp dùng chân trời 2048px và Mặt Trời 1024px; cảnh ngừng vẽ khi khuất màn hình.
 - Đối chiếu KHBD và đề xuất: `../reports/Rà soát ebook Giải mã bốn mùa.md`.
+
+## v1.5 (P1 – khôi phục tương tác KHBD)
+
+- Tr.6: thanh ngày 1–365, mũi tên vàng hướng tây → đông, Sao Mai hỏi gợi mở ở 4 mốc; xong khi kéo qua đủ 4 mùa.
+- Tr.8: kéo thả 8 thẻ mùa (Pointer Events; chạm thẻ rồi chạm ô làm dự phòng), thẻ sai bật về kèm gợi ý; thêm hàng "Ngả về Mặt Trời".
+- Tr.9: bật/tắt giả thuyết "gần – xa" so với thực tế; hình chùm sáng loang 22/6 Hà Nội – Sydney (≈1,9 lần); trò Đúng hay Sai 30 giây.
+- Tr.10: HS tự nhập số giờ đọc được (chấp nhận ±10 phút), ghi chú "số liệu gần đúng"; mục gập "Thử ngày bất kì" có biểu đồ cả năm 5 địa điểm.
+- Kiểm: `tsc`, `npm test` (25/25), `npm run build`; xem trước 375×812. Kéo thả thật trên điện thoại chưa kiểm.

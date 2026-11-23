@@ -1,0 +1,64 @@
+/* v1.5 (P1): thanh ngày, thẻ mùa kéo thả, thí nghiệm gần–xa, chùm sáng, biểu đồ cả năm, Phiếu 3 nhập tay, Đúng/Sai 30 giây. */
+
+/* Thanh ngày 1–365 */
+.day-readout{flex-shrink:0;display:flex;align-items:center;gap:12px;padding:4px 2px}
+.day-readout output{min-width:72px;padding:4px 10px;border-radius:10px;background:var(--navy-2);color:var(--gold);font:700 22px/1.2 Lexend,sans-serif;text-align:center;font-variant-numeric:tabular-nums}
+.day-readout input[type=range]{flex:1;min-width:0;height:var(--tap);accent-color:#c97a12;cursor:pointer;touch-action:pan-y}
+.orbit-hint{flex-shrink:0;display:flex;align-items:center;gap:8px;margin:0;padding:6px 10px;border-radius:12px;background:#fdf3d8;color:var(--ink);font-size:15px;line-height:1.35}
+.orbit-hint img{width:34px;height:34px;flex-shrink:0;object-fit:contain}
+
+/* Phiếu 2: thẻ mùa */
+.season-tray{flex-shrink:0;display:flex;flex-wrap:wrap;gap:8px;min-height:var(--tap)}
+.season-card{min-width:72px;min-height:var(--tap);padding:6px 14px;border:2px solid transparent;border-radius:12px;font:700 16px Lexend,sans-serif;color:#1d2b3a;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;box-shadow:0 2px 0 #0002}
+.season-card.s0,.season-table .filled.s0{background:#dff3d6}
+.season-card.s1,.season-table .filled.s1{background:#ffd9a8}
+.season-card.s2,.season-table .filled.s2{background:#f6e3b4}
+.season-card.s3,.season-table .filled.s3{background:#cfe3ec}
+.season-card.on{border-color:var(--navy-2);transform:translateY(-2px);box-shadow:0 4px 0 #0003}
+.season-card.dragging{opacity:.35}
+.season-card.bounce{animation:card-back .45s ease}
+@keyframes card-back{0%{transform:translateY(-18px)}40%{transform:translateX(-6px)}70%{transform:translateX(5px)}100%{transform:none}}
+.drag-ghost{position:fixed;left:0;top:0;z-index:1000;pointer-events:none;cursor:grabbing;opacity:.95;box-shadow:0 8px 18px #0004}
+.season-table td{padding:2px}
+.season-table .filled{font-weight:700}
+.season-table .slot{width:100%;min-height:40px;border:2px dashed #b9b3a0;border-radius:8px;background:#fffdf7;color:#8a8574;font-weight:700;cursor:pointer}
+.season-table .slot.ready{border-color:#c97a12;background:#fff7e6}
+.season-table .slot.over{border-style:solid;border-color:var(--navy-2);background:#fdf3d8}
+.season-table .th-day{width:100%;min-height:36px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-weight:700;cursor:pointer}
+.season-table .th-day.active{background:var(--navy-2);color:var(--gold)}
+.season-table .tilt td,.season-table .tilt th{font-size:13px;color:#4c6074}
+@media (prefers-reduced-motion:reduce){.season-card.bounce{animation:none}}
+.reduced-motion .season-card.bounce{animation:none}
+
+/* Tr.9: thí nghiệm gần – xa, chùm sáng loang */
+.hypo-box{flex-shrink:0;padding:8px 10px;border:2px solid #c0392b55;border-radius:12px;background:#fff6f3}
+.hypo-box h3{margin:0 0 6px;font:600 15px Lexend,sans-serif}
+.hypo-verdict{margin:6px 0 0;font-weight:700;color:#a3261a}
+.beam-fig{flex-shrink:0;margin:0;padding:6px;border:1px solid var(--line);border-radius:12px;background:#f2f7fb}
+.beam-fig svg{display:block;width:100%;height:auto;font:600 11px 'Be Vietnam Pro',sans-serif;fill:#24364d}
+.beam-fig figcaption{font-size:14px;line-height:1.35;color:var(--ink)}
+
+/* Tr.10: biểu đồ cả năm, Phiếu 3 nhập tay */
+.free-day[open]{padding-bottom:6px}
+.free-day .day-readout{padding:4px 10px}
+.dl-chart{margin:0;padding:0 8px}
+.dl-chart svg{display:block;width:100%;height:auto;font:500 10px 'Be Vietnam Pro',sans-serif;fill:#4c6074}
+.dl-chart .grid path{stroke:#d9d6c8;stroke-width:1}
+.dl-chart .mark{stroke:#c9b98c;stroke-dasharray:3 3}
+.dl-chart #chart-marker{stroke:var(--navy-2);stroke-width:2}
+.dl-chart figcaption{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--ink)}
+.dl-chart figcaption i{display:inline-block;width:14px;height:4px;margin-right:4px;vertical-align:middle;border-radius:2px}
+.dl-chart figcaption small{flex-basis:100%;color:#5b6e80}
+.sheet3-entry{flex-shrink:0;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:8px 10px;border:2px solid #c97a12;border-radius:12px;background:#fff7e6;font-size:15px}
+.sheet3-entry .hm{display:flex;align-items:center;gap:6px;font-weight:600}
+.sheet3-entry .hm input[data-input]{display:inline-block;flex:none;width:3.4em;margin:0;min-height:var(--tap);padding:4px;border:1px solid #8a8574;border-radius:8px;font:700 18px Lexend,sans-serif;text-align:center}
+.qc-table td.edit{background:#fff7e6;outline:2px solid #c97a12;outline-offset:-2px;font-weight:700}
+
+/* Đúng hay Sai · 30 giây */
+.tf-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;font-weight:600}
+.tf-top b{padding:4px 12px;border-radius:999px;background:var(--navy-2);color:var(--gold);font:700 18px Lexend,sans-serif;font-variant-numeric:tabular-nums}
+.tf-top b.low{background:#a3261a;color:#fff}
+.tf-score{font-size:20px}
+.tf-review{padding-left:20px;line-height:1.45}
+.tf-review li{margin-bottom:6px}
+.tf-dialog .primary{margin-top:10px}

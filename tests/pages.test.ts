@@ -1,7 +1,8 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
 import {content,freshUI,type UI} from '../src/pages/content';
 import {pages,PAGE_COUNT} from '../src/content/book';
-import {fresh,decode,migratePage,OLD_TO_NEW,completed,pageDone,PLACES,SHEET3_DAYS,type ProgressV1} from '../src/state/progress';
+import {fresh,decode,migratePage,OLD_TO_NEW,completed,pageDone,PLACES,SHEET3_DAYS,SEASON_N,SEASON_S,readsDayLength,type ProgressV1} from '../src/state/progress';
+import {declination} from '../src/science/earth';
 const data=JSON.parse(readFileSync(new URL('../public/data/questions.json',import.meta.url),'utf8'));
 const config=JSON.parse(readFileSync(new URL('../public/data/config.json',import.meta.url),'utf8'));
 
@@ -22,8 +23,10 @@ function variants(p:number):[string,ProgressV1,UI][]{const out:[string,ProgressV
  const u=()=>freshUI();
  if(p===4){const x=u();x.pred={i:3,draft:[0,1,2]};out.push(['ô câu hỏi',fresh(),x]);}
  if(p===7){const x=u();x.steps.sheet1={i:0,chosen:1,result:'bad'};out.push(['chọn sai',fresh(),x]);}
- if(p===8){const s=fresh();const x=u();x.north=0;x.south=1;x.seasonMsg='Chưa đúng ở nửa cầu Bắc.';out.push(['đang ghép',s,x]);const d=doneState();delete d.answers.why;out.push(['câu vì sao',d,u()]);}
+ if(p===8){const s=fresh();const x=u();x.card=1;x.bounce=1;x.seasonMsg='Chưa đúng, thẻ đã quay về.';s.answers['season-2']=0;out.push(['đang ghép',s,x]);const d=doneState();delete d.answers.why;out.push(['câu vì sao',d,u()]);}
  if(p===10){const d=doneState();delete d.answers.poles;out.push(['đủ 10 ô',d,u()]);}
+ if(p===10){const x=u();x.dl={h:'13',m:'1'};x.sheetMsg='Chưa khớp.';x.free=true;out.push(['đang ghi phiếu',fresh(),x]);}
+ if(p===9){const x=u();x.hypo=true;out.push(['bật giả thuyết',fresh(),x]);}
  if(p===14){const x=u();x.quiz={order:[0,1,2,3,4,5,6,7,8,9],pos:2,chosen:1,shown:true,answers:[0,0]};out.push(['đang làm',fresh(),x]);const s=fresh();s.attempts=[{answers:[0,0,0,0,0,0,0,0,0,0],score:2,passed:false}];out.push(['chưa đạt',s,u()]);}
  if(p===17){for(const tab of ['practice'] as const){const x=u();x.deck.tab=tab;x.deck.pool=['orbit-1','q1','truth-1','table-1','journal-1'];x.deck.chosen=tab==='practice'?0:null;out.push([tab,fresh(),x]);}}
  return out;}
@@ -44,6 +47,14 @@ test('Tiến độ v1.3 (24 trang) mở đúng trang tương ứng của bản 1
  assert.throws(()=>decode(JSON.stringify({...fresh(),page:19})));
  const v13={...fresh(),page:24} as any;delete v13.layout;assert.equal(decode(JSON.stringify(v13)).page,18);
  assert.throws(()=>decode(JSON.stringify({...fresh(),layout:24})));
+});
+test('Phiếu 3 do học sinh tự nhập: đúng trong ±10 phút, không tự điền',()=>{
+ assert.ok(readsDayLength(21,173,'13','17'));assert.ok(readsDayLength(21,173,'13','10'));assert.ok(!readsDayLength(21,173,'13','40'));assert.ok(!readsDayLength(21,173,'','17'));assert.ok(!readsDayLength(21,173,'13','75'));
+ assert.ok(readsDayLength(-34,173,'9','44'));assert.ok(readsDayLength(0,356,'12','7'));
+ const s=fresh();s.page=10;const html=content(10,{state:s,data,config,ui:freshUI(),badges:[],resumePage:1});assert.match(html,/data-input="dl-h"/);assert.match(html,/đã ghi 0\/10 ô/);
+});
+test('Thẻ mùa Phiếu 2 khớp nửa cầu ngả về Mặt Trời',()=>{const days=[80,173,266,356];
+ days.forEach((d,i)=>{const decl=declination(d);if(Math.abs(decl)>10){assert.equal(SEASON_N[i],decl>0?1:3,`Bắc ${d}`);assert.equal(SEASON_S[i],decl>0?3:1,`Nam ${d}`);}else assert.equal(Math.abs(SEASON_N[i]-SEASON_S[i]),2);});
 });
 // In bảng đo khi cần: BAO_CAO=1 npm test
 if(process.env.BAO_CAO)for(let p=1;p<=PAGE_COUNT;p++)for(const [name,s,ui] of variants(p)){const m=measure(p,s,ui);console.log(`tr.${p}\t${name}\tchính ${m.primary}\tđiều khiển ${m.controls.length} [${m.controls.join(' ')}]\t${m.words} chữ`);}

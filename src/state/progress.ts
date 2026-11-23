@@ -1,3 +1,4 @@
+import {dayLength} from '../science/earth';
 export type StationId=0|1|2|3|4;
 // layout: 18 = bố cục v1.4. Tiến độ v1.3 (24 trang) không có trường này và được đổi trang khi đọc.
 export interface ProgressV1 {version:1;layout?:18;page:number;answers:Record<string,number>;predictions:number[]|null;question:string;reflection:string;revised:number[];self:number[];suitcase:string[];reason:string;rubric:number[];seen:string[];scene:{day:number;lat:number;time:number};attempts:{answers:number[];score:number;passed:boolean}[];reducedMotion:boolean;quality:'high'|'low';obs?:string[]}
@@ -23,6 +24,11 @@ const ok=(s:ProgressV1,...ids:string[])=>ids.every(k=>s.answers[k]===0);
 export const SHEET1=['orbit-1','orbit-2','orbit-3','journal-1'];
 export const CODE=Array.from({length:6},(_,i)=>`code-${i}`);
 export const SEASONS=Array.from({length:8},(_,i)=>`season-${i}`);
+// Phiếu số 2: thẻ mùa đúng cho 4 ngày 21/3, 22/6, 23/9, 22/12 (chỉ số trong SEASON_NAMES).
+export const SEASON_NAMES=['Xuân','Hạ','Thu','Đông'] as const;
+export const SEASON_N=[0,1,2,3],SEASON_S=[2,3,0,1];
+// Phiếu số 3 do học sinh tự đọc: chấp nhận lệch ±10 phút so với mô hình.
+export function readsDayLength(lat:number,day:number,h:string,m:string){const H=Number(h.trim()),M=Number(m.trim()||'0');if(!Number.isInteger(H)||!Number.isInteger(M)||H<0||H>24||M<0||M>59)return false;return Math.abs(H*60+M-dayLength(day,lat)*60)<=10;}
 // Phiếu số 3: 5 địa điểm × 2 ngày. Mỗi ô đã xem được ghi vào seen dạng “dl:<vĩ độ>:<ngày>”.
 export const PLACES:[number,string][]=[[0,'Xích đạo'],[10,'TP. Hồ Chí Minh'],[21,'Hà Nội'],[-34,'Sydney'],[66,'Gần vòng cực Bắc']];
 export const SHEET3_DAYS=[173,356];
