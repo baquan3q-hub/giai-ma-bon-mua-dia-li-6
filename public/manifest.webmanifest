@@ -1,0 +1,15 @@
+{
+  "name": "Giải mã bốn mùa · Địa lí 6",
+  "short_name": "Bốn mùa",
+  "description": "Sách tương tác Địa lí 6 (KNTT) Bài 8: chuyển động của Trái Đất quanh Mặt Trời và hệ quả.",
+  "lang": "vi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b172a",
+  "theme_color": "#0b172a",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ]
+}

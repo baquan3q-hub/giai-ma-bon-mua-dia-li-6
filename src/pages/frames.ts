@@ -1,6 +1,7 @@
 // Icon giao diện dùng chung. Lời Sao Mai từng trang nằm trong src/content/book.ts (trường say).
 // Icon SVG là bản tạm; khi có bộ ảnh J01–J12 thì thay trong hàm icon().
 const paths:Record<string,string>={
+ download:'<path d="M11 4h2v8.2l3.3-3.3 1.4 1.4L12 16l-5.7-5.7 1.4-1.4L11 12.2zM5 18h14v2H5z"/>',
  list:'<path d="M4 6h16M4 12h16M4 18h10"/>',
  sound:'<path d="M4 9v6h4l5 4V5L8 9H4zM16.5 9a4 4 0 0 1 0 6M19 6.5a8 8 0 0 1 0 11"/>',
  mute:'<path d="M4 9v6h4l5 4V5L8 9H4zM16.5 9.5l4.5 5M21 9.5l-4.5 5"/>',

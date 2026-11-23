@@ -16,7 +16,7 @@ export function tiltAngles(min:number){
 export const ORBIT={cx:200,cy:104,scale:150/3.8,squash:0.45};
 export function orbitPoint(day:number){const [x,,z]=orbitPosition(day);return {x:ORBIT.cx+x*ORBIT.scale,y:ORBIT.cy+z*ORBIT.scale*ORBIT.squash};}
 export function orbitAxis2D(){const [ax,ay]=axisVector();return {dx:ax,dy:-ay};}
-// >0: đầu Bắc của trục ngả về phía Mặt Trời (mùa hạ ở bán cầu Bắc).
+// >0: đầu Bắc của trục ngả về phía Mặt Trời (mùa hạ ở nửa cầu Bắc).
 export function northTowardSun(day:number){const [x,,z]=orbitPosition(day);const [ax,,az]=axisVector();return -(x*ax+z*az);}
 
 // Tr. 14 · Vĩ tuyến chia phần ngày/đêm theo nửa cung ban ngày H0 (độ): H0 = 7,5 × số giờ ban ngày.

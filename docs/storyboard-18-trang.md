@@ -46,7 +46,7 @@ Khung chung còn **4 nút** (v1.3 có 13).
 - **Điều khiển:** không có.
 - **Từ v1.3:** gộp tr. 2, 3, 4, 5. Mục tiêu chi tiết chuyển vào Mục lục.
 
-### Tr. 3 — Bản tin hai bán cầu (Hoạt hình V1)
+### Tr. 3 — Bản tin hai nửa cầu (Hoạt hình V1)
 - **Mục tiêu:** thấy hiện tượng trái mùa, nảy ra câu hỏi. Chưa giải thích gì.
 - **Hình:** trình phát hoạt hình V1 (≈ 75″), phụ đề luôn hiện.
 
@@ -77,7 +77,7 @@ Khung chung còn **4 nút** (v1.3 có 13).
 - **Hoàn thành khi:** đủ 3 câu.
 - **Từ v1.3:** tr. 7. Dữ liệu `predictions` giữ nguyên.
 
-### Tr. 5 — Nhắc lại Bài 7 (tuỳ chọn, 1 phút)
+### Tr. 5 — Nhắc lại Bài 6, 7 (tuỳ chọn, 1 phút)
 - **Mục tiêu:** gợi lại kiến thức nền cần dùng: Xích đạo, hai nửa cầu, tự quay tây → đông, ngày và đêm.
 - **Hình:** quả Địa Cầu 2D, nhãn cố định: trục, cực Bắc, cực Nam, Xích đạo, nửa cầu Bắc, nửa cầu Nam. Hà Nội và Sydney là hai chấm.
 

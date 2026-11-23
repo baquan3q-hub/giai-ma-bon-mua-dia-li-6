@@ -1,0 +1,14 @@
+/* v1.7 (P3): tương phản chữ ≥4.5:1, vùng chạm ≥44px, viền focus thấy rõ trên giấy. */
+.eyebrow{color:#7a571c}
+.page-footer,.page-footer span{color:#566875}
+.season-table .slot{min-height:44px;color:#6a6553;border-color:#9e977f}
+.season-table .th-day{min-height:44px}
+.qc-dots li{color:#5c6876}
+.qc-opt.correct span{background:#23784a}
+.hint-btn{min-height:44px}
+.st-dot{position:relative;width:44px;height:44px}
+@media(max-width:700px){.st-dot{width:34px;height:44px}}
+button.fr-scene:focus-visible{outline:3px solid #0b172a;outline-offset:3px;box-shadow:0 0 0 6px var(--gold)}
+/* Infographic 4 ngày đặc biệt (Sổ tay ôn tập) */
+.info-4d{flex-shrink:0;margin:0;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px #0b172a22}
+.info-4d svg{display:block;width:100%;height:auto}

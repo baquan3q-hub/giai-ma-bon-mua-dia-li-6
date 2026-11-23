@@ -108,3 +108,17 @@ GitHub Actions chạy test/build/deploy thành công. Đã mở link HTTPS công
 - Vali: áo thun, dép sandal bị đánh dấu là đồ mùa nóng; câu giải thích chấm gợi ý 3 tiêu chí Phụ lục 3 bằng từ khoá (có dấu hoặc không dấu).
 - Gửi kết quả: bảng tóm tắt, trường riêng cho Google Form, tuỳ chọn gửi thẳng Apps Script (`docs/huong-dan-gui-ket-qua.md`).
 - Kiểm: `tsc`, `npm test` (27/27), `npm run build`; xem trước 375×812 và 1024 px. Chưa thử Form/Apps Script thật (chưa có URL của thầy cô).
+
+## v1.7 (P3 – chất lượng và tiếp cận)
+
+- Đọc ít: test mới đếm chữ nhìn thấy trên mỗi trang (mới và đã xong) ≤ 80; rút gọn tr.2, 6, 9, 10, 15, 16; tr.9 thu khung chùm sáng vào mục gập.
+- Tương phản (đo trong trình duyệt trên cả 18 trang, so nền thật): nhãn phần, chân trang, ô trống bảng mùa, chấm tiến độ, chữ cái đáp án đúng đều ≥ 4,5:1. Viền focus của cảnh bấm được đổi sang viền tối + quầng vàng.
+- Vùng chạm ≥ 44 px: chấm trạm, nút Gợi ý, nút ngày và ô bảng mùa (tr.8).
+- Thống nhất "nửa cầu" (SGK KNTT) thay cho "bán cầu" trong câu hỏi, tài nguyên, mã.
+- Lời giải thích 10 câu kiểm tra theo Phụ lục 2 KHBD (giữ chú thích mặt phẳng quỹ đạo, ngày quy ước).
+- Đọc to: chờ danh sách giọng (`voiceschanged`, tối đa 1,5 giây), chia câu ≤ 160 kí tự để Chrome không ngắt; dự phòng tệp thu sẵn `public/audio/trang-N.mp3` khai báo ở `config.json → readAloud.mp3`.
+- Infographic "4 ngày đặc biệt" (Sổ tay ôn tập, thẻ "4 ngày"): 21/3, 22/6, 23/9, 22/12 — nơi Mặt Trời chiếu thẳng góc, mùa hai nửa cầu, độ dài ngày Hà Nội/Sydney tính từ công thức; nút **Tải ảnh PNG** (1360×1612).
+- Tr.5 thành "Nhắc lại Bài 6, 7" theo KHBD.
+- Học offline (PWA): `manifest.webmanifest`, biểu tượng 192/512, `sw.js` lưu sẵn khung sách + dữ liệu, lưu dần ảnh và 3D khi mở tới; trang chính và `data/*.json` lấy mạng trước. Đã thử: mở bản build một lần, tắt máy chủ, tải lại tr.8 vẫn chạy.
+- Sửa lỗi cũ: ảnh nền sách (`--scene-bg`) ở bản build trỏ nhầm `/assets/assets/…`; nay dùng đường dẫn tuyệt đối.
+- Kiểm: `tsc`, `npm test` (30/30), `npm run build`; xem trước 375×812. Chưa thử cài PWA và giọng đọc trên điện thoại thật.

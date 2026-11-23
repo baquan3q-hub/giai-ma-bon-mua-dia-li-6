@@ -2,22 +2,22 @@
 export type Phase=''|'A'|'B'|'C'|'D';
 export interface BookPage{number:number;title:string;phase:Phase;image:string;say:string}
 export const phases:Record<Exclude<Phase,''>,{name:string;hint:string}>={
- A:{name:'Trước giờ',hint:'Ở nhà, khoảng 15 phút'},
- B:{name:'Trên lớp',hint:'Cùng thầy cô, hoặc xem lại ở nhà'},
- C:{name:'Sau giờ',hint:'Ở nhà, khoảng 20 phút'},
+ A:{name:'Trước giờ',hint:'Ở nhà · 15 phút'},
+ B:{name:'Trên lớp',hint:'Cùng thầy cô'},
+ C:{name:'Sau giờ',hint:'Ở nhà · 20 phút'},
  D:{name:'Mọi lúc',hint:'Ôn 3 phút mỗi ngày'}
 };
 // [tiêu đề, phần, ảnh nền, lời Sao Mai (≤ 15 chữ)]
 const rows:[string,Phase,string,string][]=[
 ['Giải mã bốn mùa','','B01',''],
 ['Nhiệm vụ của nhà giải mã','A','B01','Chào em, mình là Sao Mai!'],
-['Bản tin hai bán cầu','A','B02','Cùng ngày 15 tháng 7, hai nơi khác nhau thế nào?'],
+['Bản tin hai nửa cầu','A','B02','Cùng ngày 15 tháng 7, hai nơi khác nhau thế nào?'],
 ['Dự đoán của em','A','B02','Chưa cần đúng. Hãy chọn điều em đang nghĩ.'],
-['Nhắc lại Bài 7','A','B01','Một phút ôn lại trước khi lên lớp nhé.'],
+['Nhắc lại Bài 6, 7','A','B01','Một phút ôn lại trước khi lên lớp nhé.'],
 ['Trái Đất đi quanh Mặt Trời','B','B03','Em thử bấm Chạy: đầu trục chỉ về đâu?'],
 ['Trục nghiêng không đổi hướng','B','B03','Đây là chìa khoá của bốn mùa!'],
 ['Mùa ở hai nửa cầu','B','B03','Nửa cầu nào ngả về phía Mặt Trời?'],
-['Gần hay xa?','B','B03','Mùa có phải do gần hay xa Mặt Trời?'],
+['Gần hay xa?','B','B03','Gần hay xa có làm ra mùa?'],
 ['Ngày – đêm dài ngắn','B','B04','Càng đi về phía cực, điều gì thay đổi?'],
 ['Bầu trời Hà Nội – Sydney','B','B04','Kéo để nhìn quanh bầu trời.'],
 ['Ô chữ chìa khoá','B','B02','Trả lời 6 câu để mở từ khoá.'],

@@ -78,7 +78,7 @@
         "Nửa cầu hướng về phía Mặt Trời"
       ],
       "correct": 0,
-      "explanation": "Hai bán cầu luân phiên ngả về phía Mặt Trời vì trục giữ hướng trong khi vị trí quỹ đạo thay đổi."
+      "explanation": "Hai nửa cầu luân phiên ngả về phía Mặt Trời vì trục giữ hướng trong khi vị trí quỹ đạo thay đổi."
     },
     {
       "id": "journal-3",
@@ -129,13 +129,13 @@
     },
     {
       "id": "truth-1",
-      "prompt": "Hai bán cầu có mùa trái ngược nhau.",
+      "prompt": "Hai nửa cầu có mùa trái ngược nhau.",
       "options": [
         "Đúng",
         "Sai"
       ],
       "correct": 0,
-      "explanation": "Một bán cầu ngả về Mặt Trời trong khi bán cầu còn lại chếch ra xa."
+      "explanation": "Một nửa cầu ngả về Mặt Trời trong khi nửa cầu còn lại chếch ra xa."
     },
     {
       "id": "truth-2",
@@ -159,55 +159,55 @@
     },
     {
       "id": "truth-4",
-      "prompt": "Mùa lạnh ở một bán cầu thường có đêm dài hơn ngày.",
+      "prompt": "Mùa lạnh ở một nửa cầu thường có đêm dài hơn ngày.",
       "options": [
         "Đúng",
         "Sai"
       ],
       "correct": 0,
-      "explanation": "Bán cầu nhận ít ánh sáng hơn trong thời gian một ngày."
+      "explanation": "Nửa cầu nhận ít ánh sáng hơn trong thời gian một ngày."
     }
   ],
   "table": [
     {
       "id": "table-0",
-      "prompt": "22/6 · Bán cầu Bắc",
+      "prompt": "22/6 · Nửa cầu Bắc",
       "options": [
         "Mùa nóng, ngày dài hơn đêm",
         "Mùa lạnh, ngày ngắn hơn đêm"
       ],
       "correct": 0,
-      "explanation": "Bán cầu Bắc ngả về Mặt Trời vào 22/6."
+      "explanation": "Nửa cầu Bắc ngả về Mặt Trời vào 22/6."
     },
     {
       "id": "table-1",
-      "prompt": "22/6 · Bán cầu Nam",
+      "prompt": "22/6 · Nửa cầu Nam",
       "options": [
         "Mùa lạnh, ngày ngắn hơn đêm",
         "Mùa nóng, ngày dài hơn đêm"
       ],
       "correct": 0,
-      "explanation": "Cùng thời điểm, bán cầu Nam chếch ra xa Mặt Trời."
+      "explanation": "Cùng thời điểm, nửa cầu Nam chếch ra xa Mặt Trời."
     },
     {
       "id": "table-2",
-      "prompt": "22/12 · Bán cầu Bắc",
+      "prompt": "22/12 · Nửa cầu Bắc",
       "options": [
         "Mùa lạnh, ngày ngắn hơn đêm",
         "Mùa nóng, ngày dài hơn đêm"
       ],
       "correct": 0,
-      "explanation": "Bán cầu Bắc chếch ra xa Mặt Trời vào 22/12."
+      "explanation": "Nửa cầu Bắc chếch ra xa Mặt Trời vào 22/12."
     },
     {
       "id": "table-3",
-      "prompt": "22/12 · Bán cầu Nam",
+      "prompt": "22/12 · Nửa cầu Nam",
       "options": [
         "Mùa nóng, ngày dài hơn đêm",
         "Mùa lạnh, ngày ngắn hơn đêm"
       ],
       "correct": 0,
-      "explanation": "Bán cầu Nam ngả về Mặt Trời vào 22/12."
+      "explanation": "Nửa cầu Nam ngả về Mặt Trời vào 22/12."
     }
   ],
   "poles": [
@@ -255,13 +255,13 @@
     },
     {
       "id": "code-3",
-      "prompt": "22/6, bán cầu Bắc có…",
+      "prompt": "22/6, nửa cầu Bắc có…",
       "options": [
         "Ngày dài hơn đêm",
         "Đêm dài hơn ngày"
       ],
       "correct": 0,
-      "explanation": "Bán cầu Bắc đang ngả về phía Mặt Trời."
+      "explanation": "Nửa cầu Bắc đang ngả về phía Mặt Trời."
     },
     {
       "id": "code-4",
@@ -281,7 +281,7 @@
         "Chỉ quần áo mùa nóng"
       ],
       "correct": 0,
-      "explanation": "Sydney ở bán cầu Nam, tháng 7 là mùa đông."
+      "explanation": "Sydney ở nửa cầu Nam, tháng 7 là mùa đông."
     }
   ],
   "quiz": [
@@ -295,7 +295,7 @@
         "Nam lên bắc"
       ],
       "correct": 0,
-      "explanation": "Cùng chiều với chuyển động tự quay: từ tây sang đông."
+      "explanation": "Cùng hướng với chuyển động tự quay quanh trục (Bài 7): từ tây sang đông."
     },
     {
       "id": "q2",
@@ -307,7 +307,7 @@
         "366 ngày 6 giờ"
       ],
       "correct": 2,
-      "explanation": "SGK dùng giá trị gần đúng 365 ngày 6 giờ."
+      "explanation": "Mỗi năm dư 6 giờ, sau 4 năm cộng lại thành 1 ngày, vì vậy có năm nhuận."
     },
     {
       "id": "q3",
@@ -319,7 +319,7 @@
         "Đường thẳng"
       ],
       "correct": 1,
-      "explanation": "Quỹ đạo là elip có độ lệch tâm nhỏ."
+      "explanation": "Elip gần tròn nên khoảng cách đến Mặt Trời thay đổi rất ít trong năm."
     },
     {
       "id": "q4",
@@ -331,19 +331,19 @@
         "Nằm ngang"
       ],
       "correct": 2,
-      "explanation": "Phải nêu rõ mặt phẳng tham chiếu cho góc nghiêng."
+      "explanation": "Đây là “chìa khoá” sinh ra mùa. Góc 66°33′ đo với mặt phẳng quỹ đạo."
     },
     {
       "id": "q5",
-      "prompt": "Ngày 22/6, bán cầu Bắc…",
+      "prompt": "Ngày 22/6, nửa cầu Bắc…",
       "options": [
         "Ngả về Mặt Trời, mùa nóng",
         "Chếch xa Mặt Trời, mùa lạnh",
-        "Được chiếu sáng bằng bán cầu Nam",
+        "Được chiếu sáng bằng nửa cầu Nam",
         "Hoàn toàn là đêm"
       ],
       "correct": 0,
-      "explanation": "Nhận ánh sáng trực tiếp hơn và thời gian chiếu sáng dài hơn."
+      "explanation": "Nửa cầu ngả về Mặt Trời nhận nhiều ánh sáng và nhiệt hơn."
     },
     {
       "id": "q6",
@@ -355,7 +355,7 @@
         "22/6 và 23/9"
       ],
       "correct": 1,
-      "explanation": "Hai mốc xuân phân và thu phân được mô hình hoá trong SGK; ngày thực thay đổi theo năm."
+      "explanation": "Khi đó hai nửa cầu được chiếu sáng như nhau (ngày theo quy ước SGK)."
     },
     {
       "id": "q7",
@@ -367,11 +367,11 @@
         "Mặt Trời lúc nóng lúc lạnh"
       ],
       "correct": 1,
-      "explanation": "Hai bán cầu trái mùa ở cùng một khoảng cách: trục nghiêng là chìa khoá."
+      "explanation": "Nếu do gần – xa thì hai nửa cầu phải cùng mùa, nhưng thực tế hai nửa cầu trái mùa nhau."
     },
     {
       "id": "q8",
-      "prompt": "Ngày 22/12 ở bán cầu Nam…",
+      "prompt": "Ngày 22/12 ở nửa cầu Nam…",
       "options": [
         "Ngày dài hơn đêm",
         "Đêm dài hơn ngày",
@@ -379,7 +379,7 @@
         "Không có ban ngày"
       ],
       "correct": 0,
-      "explanation": "Bán cầu Nam đang là mùa nóng."
+      "explanation": "Nửa cầu Nam đang ngả về Mặt Trời (mùa nóng) nên ngày dài hơn đêm."
     },
     {
       "id": "q9",
@@ -391,7 +391,7 @@
         "Mùa xuân"
       ],
       "correct": 1,
-      "explanation": "Sydney nằm ở bán cầu Nam, trái mùa với Hà Nội."
+      "explanation": "Hai nửa cầu có mùa trái ngược nhau: Sydney ở nửa cầu Nam."
     },
     {
       "id": "q10",

@@ -3,7 +3,7 @@
     "author": "Quân",
     "school": "ĐH Giáo dục – ĐHQGHN",
     "course": "Học liệu số",
-    "version": "1.6.0"
+    "version": "1.7.0"
   },
   "video": {
     "url": "",
@@ -25,5 +25,9 @@
   },
   "appsScript": {
     "url": ""
+  },
+  "readAloud": {
+    "note": "Ghi số trang đã có tệp thu sẵn public/audio/trang-N.mp3; trang khác dùng giọng đọc của máy.",
+    "mp3": []
   }
 }

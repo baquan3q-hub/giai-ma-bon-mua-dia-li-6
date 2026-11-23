@@ -68,5 +68,12 @@ test('Gợi ý 2 tầng: trang có gợi ý thì có lời Sao Mai, và vùng t�
   const html=content(p,{state:fresh(),data,config,ui:freshUI(),badges:[],resumePage:1}),sel=h.at as string;
   assert.ok(sel.startsWith('#')?html.includes(`id="${sel.slice(1)}"`):[...html.matchAll(/class="([^"]*)"/g)].some(m=>m[1].split(/\s+/).includes(sel.slice(1))),`tr.${p}: thiếu ${sel}`);}
 });
+// Toàn bộ chữ nhìn thấy (nút, nhãn, ghi chú, tiêu đề, lời Sao Mai); không tính hình SVG, bảng phiếu, phần gập, chữ “đang tải”, chữ học sinh tự viết.
+const visible=(h:string)=>h.replace(/<textarea[^>]*>[\s\S]*?<\/textarea>/g,' ').replace(/<div class="scene-loading">[^<]*<\/div>/g,' ').replace(/<svg[\s\S]*?<\/svg>/g,' ').replace(/<table[\s\S]*?<\/table>/g,' ').replace(/<details[^>]*>(?:(?!<\/details>)[\s\S])*?<summary>([\s\S]*?)<\/summary>[\s\S]*?<\/details>/g,' $1 ').replace(/<[^>]+>/g,' ').replace(/&[a-z#0-9]+;/g,' ');
+test('Đọc ít: mỗi trang (mới và đã xong) không quá 80 chữ nhìn thấy',()=>{
+ for(let p=2;p<=PAGE_COUNT;p++)for(const [name,s] of [['mới',fresh()],['đã xong',doneState()]] as [string,ProgressV1][]){s.page=p;
+  const n=words(visible(content(p,{state:s,data,config,ui:freshUI(),badges:[],resumePage:1})))+words(`${pages[p-1].title} ${pages[p-1].say}`);
+  assert.ok(n<=80,`Trang ${p} (${name}): ${n} chữ`);}
+});
 // In bảng đo khi cần: BAO_CAO=1 npm test
 if(process.env.BAO_CAO)for(let p=1;p<=PAGE_COUNT;p++)for(const [name,s,ui] of variants(p)){const m=measure(p,s,ui);console.log(`tr.${p}\t${name}\tchính ${m.primary}\tđiều khiển ${m.controls.length} [${m.controls.join(' ')}]\t${m.words} chữ`);}
