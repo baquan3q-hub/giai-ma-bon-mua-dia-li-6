@@ -99,3 +99,12 @@ GitHub Actions chạy test/build/deploy thành công. Đã mở link HTTPS công
 - Tr.9: bật/tắt giả thuyết "gần – xa" so với thực tế; hình chùm sáng loang 22/6 Hà Nội – Sydney (≈1,9 lần); trò Đúng hay Sai 30 giây.
 - Tr.10: HS tự nhập số giờ đọc được (chấp nhận ±10 phút), ghi chú "số liệu gần đúng"; mục gập "Thử ngày bất kì" có biểu đồ cả năm 5 địa điểm.
 - Kiểm: `tsc`, `npm test` (25/25), `npm run build`; xem trước 375×812. Kéo thả thật trên điện thoại chưa kiểm.
+
+## v1.6 (P2 – hỗ trợ học và thầy cô)
+
+- Nút **Gợi ý** trong bong bóng Sao Mai ở tr.3–13 (`public/data/hints.json`): lần 1 câu hỏi gợi mở, lần 2 chỉ chỗ cần nhìn và tô sáng vùng đó, lần 3 ẩn. Lượt dùng gợi ý ghi vào hồ sơ (`hints`).
+- Thanh 5 trạm (0–4) trên đầu sách, chấm xanh = đã nhận huy hiệu, bấm để tới trạm; đếm huy hiệu x/5.
+- Bảng thầy cô (⋯ → Thầy cô dạy trên lớp → Mở bảng thầy cô): trình chiếu chữ lớn, ẩn/hiện đáp án, đồng hồ 20 giây – 3 phút, điểm 2–6 đội, bình chọn giơ tay cho 3 câu dự đoán (biểu đồ %), xác nhận rubric vali. Lưu riêng ở `gmbm-teacher`, không vào hồ sơ học sinh.
+- Vali: áo thun, dép sandal bị đánh dấu là đồ mùa nóng; câu giải thích chấm gợi ý 3 tiêu chí Phụ lục 3 bằng từ khoá (có dấu hoặc không dấu).
+- Gửi kết quả: bảng tóm tắt, trường riêng cho Google Form, tuỳ chọn gửi thẳng Apps Script (`docs/huong-dan-gui-ket-qua.md`).
+- Kiểm: `tsc`, `npm test` (27/27), `npm run build`; xem trước 375×812 và 1024 px. Chưa thử Form/Apps Script thật (chưa có URL của thầy cô).

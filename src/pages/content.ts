@@ -7,7 +7,7 @@ import {icon} from './frames';
 import {stations,phases} from '../content/book';
 import {dayLength,hours,dates,distanceAU,dateLabel,declination} from '../science/earth';
 import {orbitSvg,globeSvg} from './figures';
-import {pageDone,warm,PLACES,SHEET3_DAYS,sheet3Seen,SEASON_NAMES,SEASON_N,SEASON_S,type ProgressV1} from '../state/progress';
+import {pageDone,warm,PLACES,SHEET3_DAYS,sheet3Seen,SEASON_NAMES,SEASON_N,SEASON_S,unsuitable,packRubric,RUBRIC,type ProgressV1} from '../state/progress';
 
 export type Question={id:string;prompt:string;options:string[];correct:number;explanation:string};
 export type Step={i:number;chosen:number|null;result:'ok'|'bad'|null};
@@ -144,7 +144,9 @@ export function content(p:number,c:Ctx):string{
  case 12:{const parts=['TR','ỤC','NG','HI','Ê','NG'],ids=parts.map((_,i)=>`code-${i}`),r=stepper(c,'code',ids,parts.map((_,i)=>`Hàng ${i+1}`),'Hàng tiếp');
   return `<div class="fr-stage fr-code" role="img" aria-label="Từ khoá: ${parts.map((t,i)=>s.answers[ids[i]]===0?t:'?').join(' ')}">${parts.map((t,i)=>`<span class="${s.answers[ids[i]]===0?'unlocked':''}">${s.answers[ids[i]]===0?t:'?'}<small>Hàng ${i+1}</small></span>`).join('')}</div>${text('Từ khoá chính là <b>“chìa khoá”</b> của bốn mùa!')}${r.done&&!c.ui.steps.code?'':r.body.replace(/<ol class="qc-cells"[\s\S]*?<\/ol>/,'')}${key(r.done,'TRỤC NGHIÊNG là nguyên nhân gốc của mùa và của ngày đêm dài ngắn.')}${actions(r.main||go('Tiếp: vali đi Sydney',13))}`;}
 
- case 13:return `<div class="fr-stage fr-pack"><div class="fr-pack-grid" role="group" aria-label="Đồ có thể mang">${packItems.map(([id,pic,name])=>`<button type="button" data-action="pack:${id}" aria-pressed="${s.suitcase.includes(id)}" class="${s.suitcase.includes(id)?'selected':''}">${img(pic,'',name)}<span>${name}</span></button>`).join('')}</div></div>${text('Nghỉ hè tháng 7, Nam bay sang Sydney. Bố dặn mang áo ấm.','Em chọn đồ cho Nam, rồi viết một câu giải thích vì sao.')}<label class="qc-write"><span>Vì sao cần những đồ này?</span><textarea data-save="reason" maxlength="1000" rows="2">${esc(s.reason)}</textarea></label>${ui.packMsg?feedback(!!pageDone(s,13),ui.packMsg):''}${key(pageDone(s,13)&&!!ui.packMsg,'Sydney ở nửa cầu Nam. Tháng 7 nửa cầu Nam chếch xa Mặt Trời nên là mùa lạnh: cần áo ấm.')}${actions(pageDone(s,13)&&ui.packMsg?go('Tiếp: bài kiểm tra',14):primary('Kiểm tra vali','check-pack'))}`;
+ case 13:{const bad=unsuitable(s),rb=packRubric(s.reason),ok=!!pageDone(s,13)&&!!ui.packMsg;
+  const rubric=ok?`<ul class="pack-rubric" aria-label="Tự chấm câu giải thích, ${rb.filter(Boolean).length} trên 3 tiêu chí">${RUBRIC.map((r,i)=>`<li class="${rb[i]?'ok':''}"><b>${rb[i]?'✓':'○'}</b>${r}</li>`).join('')}<li class="by">${s.rubric[0]===1?'✓ Thầy cô đã xác nhận':'Chấm gợi ý theo từ khoá · thầy cô xác nhận'}</li></ul>`:'';
+  return `<div class="fr-stage fr-pack"><div class="fr-pack-grid" role="group" aria-label="Đồ có thể mang">${packItems.map(([id,pic,name])=>`<button type="button" data-action="pack:${id}" aria-pressed="${s.suitcase.includes(id)}" class="${s.suitcase.includes(id)?'selected':''}${ui.packMsg&&bad.includes(id)?' unsuit':''}">${img(pic,'',name)}<span>${name}</span></button>`).join('')}</div></div>${text('Nghỉ hè tháng 7, Nam bay sang Sydney. Bố dặn mang áo ấm.','Em chọn đồ cho Nam, rồi viết một câu giải thích vì sao.')}<label class="qc-write"><span>Vì sao cần những đồ này?</span><textarea data-save="reason" maxlength="1000" rows="2">${esc(s.reason)}</textarea></label>${ui.packMsg?feedback(!!pageDone(s,13),ui.packMsg):''}${rubric}${key(ok,'Sydney ở nửa cầu Nam. Tháng 7 nửa cầu Nam chếch xa Mặt Trời nên là mùa lạnh: cần áo ấm.')}${actions(ok?go('Tiếp: bài kiểm tra',14):primary('Kiểm tra vali','check-pack'))}`;}
 
  // C · SAU GIỜ
  case 14:{const Q=c.data.quiz as Question[],z=ui.quiz,last=s.attempts.at(-1);

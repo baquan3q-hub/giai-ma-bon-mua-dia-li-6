@@ -34,6 +34,13 @@ export const PLACES:[number,string][]=[[0,'Xích đạo'],[10,'TP. Hồ Chí Min
 export const SHEET3_DAYS=[173,356];
 export const sheet3Seen=(s:ProgressV1)=>PLACES.flatMap(([lat])=>SHEET3_DAYS.filter(d=>s.seen.includes(`dl:${lat}:${d}`))).length;
 export const warm=(s:ProgressV1)=>s.suitcase.includes('jacket')||s.suitcase.includes('scarf');
+// Đồ chỉ hợp mùa nóng: vali đi Sydney tháng 7 không nên có.
+export const UNSUIT=['shirt','sandals'];
+export const unsuitable=(s:ProgressV1)=>s.suitcase.filter(v=>UNSUIT.includes(v));
+// Rubric Phụ lục 3, chấm gợi ý bằng từ khoá (có dấu hoặc không dấu); thầy cô xác nhận lại.
+export const RUBRIC=['Sydney ở nửa cầu Nam','Nguyên nhân: trục nghiêng, nửa cầu Nam chếch xa Mặt Trời','Tháng 7 ở Sydney là mùa đông, trời lạnh'];
+export function packRubric(reason:string):boolean[]{const t=reason.normalize('NFD').replace(/\p{M}/gu,'').replace(/[đĐ]/g,'d').toLowerCase();
+ return [/(nua|ban) ?cau nam|phia nam|nam ban cau/.test(t),/nghieng|chech|nga ve|xa mat troi|it anh sang|it nhiet/.test(t),/mua dong|lanh|ret/.test(t)];}
 // Một trang được tính là xong khi đã làm xong việc chính của trang. Trang không có việc phải làm trả về undefined.
 export function pageDone(s:ProgressV1,p:number):boolean|undefined{
  switch(p){
@@ -47,7 +54,7 @@ export function pageDone(s:ProgressV1,p:number):boolean|undefined{
  case 10:return ok(s,'poles')||ok(s,'table-0','table-1','table-2','table-3');
  case 11:return s.seen.includes('sky-21')&&s.seen.includes('sky--34');
  case 12:return ok(s,...CODE);
- case 13:return warm(s)&&s.reason.trim().length>=15;
+ case 13:return warm(s)&&!unsuitable(s).length&&s.reason.trim().length>=15;
  case 14:return s.attempts.some(a=>a.passed);
  case 15:return s.reflection.trim().length>=10;
  default:return undefined;

@@ -1,6 +1,6 @@
 # Giải mã bốn mùa
 
-Ebook tương tác 18 trang (bản 1.4.0) cho Bài 8, Lịch sử và Địa lí 6, Kết nối tri thức. Có sách một/hai trang, 30 ảnh minh hoạ AI, mô phỏng quỹ đạo, khám phá 360°, đồng hồ ngày đêm, trò chơi và bài kiểm tra. Chạy không đăng nhập; cần kết nối để tải học liệu lần đầu.
+Ebook tương tác 18 trang (bản 1.6.0) cho Bài 8, Lịch sử và Địa lí 6, Kết nối tri thức. Có sách một/hai trang, 30 ảnh minh hoạ AI, mô phỏng quỹ đạo, khám phá 360°, đồng hồ ngày đêm, trò chơi và bài kiểm tra. Chạy không đăng nhập; cần kết nối để tải học liệu lần đầu.
 
 ## Chạy trên Windows
 

@@ -1,7 +1,7 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
 import {content,freshUI,type UI} from '../src/pages/content';
 import {pages,PAGE_COUNT} from '../src/content/book';
-import {fresh,decode,migratePage,OLD_TO_NEW,completed,pageDone,PLACES,SHEET3_DAYS,SEASON_N,SEASON_S,readsDayLength,type ProgressV1} from '../src/state/progress';
+import {fresh,decode,migratePage,OLD_TO_NEW,completed,pageDone,PLACES,SHEET3_DAYS,SEASON_N,SEASON_S,readsDayLength,packRubric,unsuitable,type ProgressV1} from '../src/state/progress';
 import {declination} from '../src/science/earth';
 const data=JSON.parse(readFileSync(new URL('../public/data/questions.json',import.meta.url),'utf8'));
 const config=JSON.parse(readFileSync(new URL('../public/data/config.json',import.meta.url),'utf8'));
@@ -55,6 +55,18 @@ test('Phiếu 3 do học sinh tự nhập: đúng trong ±10 phút, không tự 
 });
 test('Thẻ mùa Phiếu 2 khớp nửa cầu ngả về Mặt Trời',()=>{const days=[80,173,266,356];
  days.forEach((d,i)=>{const decl=declination(d);if(Math.abs(decl)>10){assert.equal(SEASON_N[i],decl>0?1:3,`Bắc ${d}`);assert.equal(SEASON_S[i],decl>0?3:1,`Nam ${d}`);}else assert.equal(Math.abs(SEASON_N[i]-SEASON_S[i]),2);});
+});
+test('Vali: đồ mùa nóng không đạt; rubric 3 tiêu chí theo từ khoá, có dấu hoặc không dấu',()=>{
+ const s=doneState();assert.ok(pageDone(s,13));s.suitcase=['jacket','sandals'];assert.deepEqual(unsuitable(s),['sandals']);assert.ok(!pageDone(s,13));
+ assert.deepEqual(packRubric('Vì Sydney ở nửa cầu Nam, trục nghiêng nên chếch xa Mặt Trời, tháng 7 là mùa đông.'),[true,true,true]);
+ assert.deepEqual(packRubric('Sydney o nua cau Nam, truc nghieng, troi lanh'),[true,true,true]);
+ assert.deepEqual(packRubric('Nam thích mặc áo khoác cho đẹp'),[false,false,false]);
+});
+test('Gợi ý 2 tầng: trang có gợi ý thì có lời Sao Mai, và vùng tô sáng có trên trang',()=>{
+ const hints=JSON.parse(readFileSync(new URL('../public/data/hints.json',import.meta.url),'utf8'));
+ for(const [k,h] of Object.entries(hints) as [string,any][]){const p=Number(k);assert.ok(pages[p-1]?.say,`tr.${p} cần lời Sao Mai`);assert.ok(h.ask.length>10&&h.look.length>10);
+  const html=content(p,{state:fresh(),data,config,ui:freshUI(),badges:[],resumePage:1}),sel=h.at as string;
+  assert.ok(sel.startsWith('#')?html.includes(`id="${sel.slice(1)}"`):[...html.matchAll(/class="([^"]*)"/g)].some(m=>m[1].split(/\s+/).includes(sel.slice(1))),`tr.${p}: thiếu ${sel}`);}
 });
 // In bảng đo khi cần: BAO_CAO=1 npm test
 if(process.env.BAO_CAO)for(let p=1;p<=PAGE_COUNT;p++)for(const [name,s,ui] of variants(p)){const m=measure(p,s,ui);console.log(`tr.${p}\t${name}\tchính ${m.primary}\tđiều khiển ${m.controls.length} [${m.controls.join(' ')}]\t${m.words} chữ`);}

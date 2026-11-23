@@ -1,0 +1,85 @@
+/* v1.6 (P2): thanh 5 trạm, Gợi ý 2 tầng, bảng thầy cô, rubric vali, kết quả gửi thầy cô. */
+
+/* Thanh 5 trạm trên đầu sách */
+.station-bar{display:flex;align-items:center;gap:4px;margin:0 auto 0 18px;padding:0;list-style:none}
+.station-bar li{display:flex}
+.st-dot{display:grid;place-items:center;width:36px;height:36px;padding:0;border:0;border-radius:50%;background:transparent;color:#cfd9e6;cursor:pointer}
+.st-dot b{display:grid;place-items:center;width:26px;height:26px;border:1.5px solid currentColor;border-radius:50%;font:600 13px Lexend,sans-serif}
+.st-dot.current b{background:#f5cc81;border-color:#f5cc81;color:#0b172a}
+.st-dot.done b{background:#8ed1b0;border-color:#8ed1b0;color:#0b172a}
+.st-dot.current.done b{box-shadow:0 0 0 3px #f5cc81}
+.st-dot:focus-visible{outline:3px solid #fff;outline-offset:1px}
+.st-badges{align-items:center;gap:4px;margin-left:6px;color:#f5cc81;font:600 13px Lexend,sans-serif}
+.st-badges img{width:24px;height:24px;object-fit:contain}
+@media(max-width:700px){.station-bar{margin:0 0 0 auto;gap:0}.st-dot{width:32px;height:30px}.st-dot b{width:22px;height:22px;font-size:11px}.st-badges{margin-left:2px;font-size:11px}.st-badges img{width:18px;height:18px}}
+
+/* Gợi ý 2 tầng trong bong bóng Sao Mai */
+.fr-speech .say{flex:1;min-width:0}
+.hint-btn{flex-shrink:0;min-height:40px;padding:4px 10px;border:1px solid #d9b25c;border-radius:999px;background:#fff;color:#7a5417;font:600 13px Lexend,sans-serif;cursor:pointer;white-space:nowrap}
+.hint-btn:hover{background:#fdf0cf}
+.fr-speech.hinting{border-color:#c97a12;background:#fff1cc}
+.hint-glow{position:relative;z-index:1;border-radius:12px;box-shadow:0 0 0 3px #c97a12,0 0 0 8px #f5c36b66;animation:hint-pulse 1.6s ease-in-out 3}
+@keyframes hint-pulse{50%{box-shadow:0 0 0 3px #c97a12,0 0 0 14px #f5c36b22}}
+.reduced-motion .hint-glow{animation:none}
+@media (prefers-reduced-motion:reduce){.hint-glow{animation:none}}
+
+/* Vali: đồ không hợp và rubric */
+.fr-pack-grid button.unsuit{outline:3px solid #c0392b;outline-offset:-3px}
+.pack-rubric{flex-shrink:0;margin:0;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:#f4f8f2;list-style:none;font-size:14px;line-height:1.4}
+.pack-rubric li{display:flex;gap:6px;color:#5b6e80}
+.pack-rubric li.ok{color:#1f5e3a;font-weight:600}
+.pack-rubric li b{width:1.1em;flex-shrink:0}
+.pack-rubric li.by{margin-top:4px;font-size:12px;font-style:italic;color:#5b6e80}
+
+/* Bảng thầy cô */
+.t-dock{position:fixed;right:14px;bottom:76px;z-index:900;width:min(340px,calc(100vw - 20px));max-height:calc(100dvh - 160px);overflow:auto;border-radius:16px;background:#fffdf7;color:var(--ink);box-shadow:0 10px 30px #0006;font-size:14px}
+.t-dock header{position:sticky;top:0;display:flex;align-items:center;gap:6px;padding:8px 10px;background:#203b59;color:#f3cc87;border-radius:16px 16px 0 0}
+.t-dock.min header{border-radius:16px}
+.t-dock header b{margin-right:auto;font:700 15px Lexend,sans-serif}
+.t-dock .chip{min-height:36px;padding:4px 10px;border:1px solid var(--line);border-radius:10px;background:var(--card,#fff);color:var(--ink);font:600 13px 'Be Vietnam Pro',sans-serif;cursor:pointer}
+.t-dock .chip.active{background:#203b59;border-color:#203b59;color:#f3cc87}
+.t-dock header .chip{border-color:#ffffff44;background:transparent;color:#f3cc87}
+.t-dock header .chip.active{background:#f3cc87;color:#203b59}
+.t-icon{width:36px;height:36px;border:0;border-radius:10px;background:#ffffff1a;color:#fff;font-size:15px;cursor:pointer}
+.t-body{display:flex;flex-direction:column;gap:8px;padding:10px}
+.t-row{display:flex;flex-wrap:wrap;gap:6px}
+.t-tabs .chip{flex:1}
+.t-clock{display:block;padding:6px;border-radius:12px;background:#0b172a;color:#f5cc81;font:700 56px/1.1 Lexend,sans-serif;text-align:center;font-variant-numeric:tabular-nums}
+.t-clock.mini{margin:8px;font-size:30px}
+.t-dock.ring .t-clock,.t-dock.ring header{animation:t-ring .4s ease 5}
+@keyframes t-ring{50%{background:#a3261a;color:#fff}}
+.t-dock .primary{width:100%}
+.t-teams{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none}
+.t-teams li{display:flex;align-items:center;gap:8px;padding:4px 8px;border-radius:10px;background:#f2f5f9}
+.t-teams li.lead{background:#fdf0cf}
+.t-teams span{margin-right:auto;font-weight:600}
+.t-teams b{min-width:2ch;font:700 24px Lexend,sans-serif;text-align:center;font-variant-numeric:tabular-nums}
+.t-pm{width:40px;height:40px;flex-shrink:0;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font:700 20px Lexend,sans-serif;cursor:pointer}
+.t-q{margin:0;font-weight:700}
+.t-votes{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none}
+.t-votes li{display:grid;grid-template-columns:1fr auto auto;grid-template-areas:'o m p' 'b m p';align-items:center;gap:2px 6px}
+.t-opt{grid-area:o;font-size:13px}
+.t-bar{grid-area:b;position:relative;height:22px;border-radius:6px;background:#e8edf2;overflow:hidden}
+.t-bar i{position:absolute;inset:0 auto 0 0;background:#9db6cf;transition:width .3s}
+.t-votes li.right .t-bar i{background:#5fae86}
+.t-votes li.right .t-opt{font-weight:700;color:#1f5e3a}
+.t-bar em{position:relative;padding-left:6px;font:600 12px/22px Lexend,sans-serif;font-style:normal}
+.t-votes .t-pm:first-of-type{grid-area:m}.t-votes .t-pm:last-of-type{grid-area:p}
+.t-note,.t-rubric{margin:0;font-size:13px;color:#4c6074}
+.t-rubric{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding-top:8px;border-top:1px solid var(--line)}
+@media(max-width:700px){.t-dock{right:10px;bottom:70px}.t-clock{font-size:44px}}
+
+/* Trình chiếu: chữ lớn hơn nữa; ẩn đáp án để cả lớp thảo luận trước */
+.present{--fs-body:22px;--fs-title:clamp(26px,2.8vw,36px)}
+.present .fr-speech{font-size:18px}
+.hide-answers .fr-key,.hide-answers .qc-feedback,.hide-answers .qc-review span,.hide-answers .pack-rubric,.hide-answers .hypo-verdict{visibility:hidden}
+.hide-answers .qc-opt.correct,.hide-answers .qc-opt.incorrect{background:var(--card,#fff)!important;border-color:var(--line)!important;color:var(--ink)!important}
+
+/* Hộp gửi kết quả */
+.result-list{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0 0 10px;padding:10px;border-radius:12px;background:#f2f5f9;font-size:14px}
+.result-list dt{font-weight:600;color:#4c6074}
+.result-list dd{margin:0}
+
+/* Màn hẹp: chỉ giữ biểu tượng ✧ để đủ chỗ cho thanh trạm; lưới vali không bị ép khi trang dài */
+@media(max-width:480px){.app-header .brand>span:not(.brand-mark){display:none}.t-dock{max-height:58dvh}}
+.fr-stage.fr-pack{flex-shrink:0}

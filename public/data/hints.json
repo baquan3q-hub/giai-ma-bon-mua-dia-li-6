@@ -1,0 +1,57 @@
+{
+  "3": {
+    "ask": "Cùng một ngày, vì sao quần áo của các bạn ở hai nơi lại khác nhau?",
+    "look": "Chạm vào từng cảnh rồi so nhiệt độ: 36 °C và 12 °C.",
+    "at": ".fr-pair"
+  },
+  "4": {
+    "ask": "Chưa cần đúng. Em nghĩ điều gì làm trời nóng hay lạnh?",
+    "look": "Chọn theo suy nghĩ của em. Sau bài học em sẽ tự kiểm chứng.",
+    "at": ".qc"
+  },
+  "5": {
+    "ask": "Xích đạo nằm ở đâu trên quả Địa Cầu?",
+    "look": "Đường ngang ở giữa là Xích đạo: phía trên là nửa cầu Bắc, phía dưới là nửa cầu Nam.",
+    "at": ".fr-figure"
+  },
+  "6": {
+    "ask": "Kéo thanh ngày thật chậm. Đầu trục phía Bắc có lúc nào đổi hướng không?",
+    "look": "Nhìn mũi tên vàng: Trái Đất đi từ tây sang đông. Đầu trục luôn chỉ về một hướng.",
+    "at": "#orbit-mount"
+  },
+  "7": {
+    "ask": "Ở các vị trí khác nhau, trục Trái Đất có còn song song với nhau không?",
+    "look": "So hướng của trục ở từng vị trí trên hình rồi mới chọn đáp án.",
+    "at": ".fr-stage"
+  },
+  "8": {
+    "ask": "Ngày này, nửa cầu nào đang ngả về phía Mặt Trời?",
+    "look": "Nửa cầu ngả về Mặt Trời là mùa hạ, nửa cầu chếch xa là mùa đông. Xuân, thu nằm giữa.",
+    "at": ".season-table"
+  },
+  "9": {
+    "ask": "Nếu mùa do gần hay xa Mặt Trời, tháng 1 cả hai nửa cầu sẽ thế nào?",
+    "look": "Tháng 1 Trái Đất gần Mặt Trời nhất, mà nửa cầu Bắc vẫn lạnh. Hai nửa cầu trái mùa.",
+    "at": ".fr-stage"
+  },
+  "10": {
+    "ask": "Vòng tròn đồng hồ cho em biết điều gì?",
+    "look": "Đọc số giờ BAN NGÀY ở giữa vòng tròn, rồi nhập giờ và phút vào phiếu.",
+    "at": "#clock-metrics"
+  },
+  "11": {
+    "ask": "Buổi trưa, Mặt Trời ở Hà Nội và Sydney có cao như nhau không?",
+    "look": "Bấm Chạy một ngày và theo dõi đường đi của Mặt Trời trên bầu trời.",
+    "at": "#sky-mount"
+  },
+  "12": {
+    "ask": "Từ cần tìm nói về trục, về mùa hay về ngày đêm?",
+    "look": "Mỗi câu đúng mở một phần của từ khoá. Xem lại trang 7 và 8 nếu cần.",
+    "at": ".qc"
+  },
+  "13": {
+    "ask": "Tháng 7, nửa cầu Nam đang là mùa gì?",
+    "look": "Sydney ở nửa cầu Nam, chếch xa Mặt Trời vào tháng 7: chọn đồ giữ ấm, bỏ đồ mùa nóng.",
+    "at": ".fr-pack-grid"
+  }
+}
