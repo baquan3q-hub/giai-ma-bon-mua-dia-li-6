@@ -41,7 +41,7 @@
 .v13 .labels-off .world-marker{display:none}
 
 /* ===== Vỏ trang đã chuyển khung ===== */
-.v13 .page.framed{gap:8px;padding:14px 22px 8px;background:linear-gradient(180deg,#f6f3ebfa 0,#f6f3ebf2 42%,#f6f3ebcc 72%,#f6f3eb80 100%)}
+.v13 .page.framed{gap:8px;padding:14px 22px 8px;background:linear-gradient(180deg,#f6f3ebfa 0,#f6f3ebf5 42%,#f6f3ebf0 72%,#f6f3ebeb 100%)}
 .v13 .page.framed .page-body{display:flex;flex-direction:column;gap:10px;overflow:visible}
 .v13 .page.framed .page-footer{margin-top:0;padding-top:4px}
 .fr-head{flex-shrink:0}
@@ -75,7 +75,7 @@
 .fr-row.done{background:#eef6efee;border-color:#a9d1ba}
 .fr-row-icon{width:auto;height:clamp(40px,7.5vh,68px);aspect-ratio:1;flex-shrink:0}
 .fr-row-text{flex:1;min-width:0}
-.fr-row-text small{display:block;font-size:var(--fs-label);letter-spacing:.06em;color:#7c775f}
+.fr-row-text small{display:block;font-size:var(--fs-label);letter-spacing:.06em;color:#5f5a44}
 .fr-row-text strong{display:block;font-size:17px;line-height:1.3}
 .fr-row-state{display:flex;align-items:center;gap:4px;font-size:13px;white-space:nowrap;color:#5b6e80}
 .fr-row.done .fr-row-state{color:#2f7d54;font-weight:600}
@@ -205,7 +205,7 @@ button.fr-card{cursor:pointer;box-shadow:0 3px 0 #d6cfba}
 button.fr-card:active{transform:translateY(2px);box-shadow:none}
 .fr-card-icon{flex:1 1 0;width:100%;min-height:40px;max-height:120px;object-fit:contain}
 .fr-card-text{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
-.fr-card-text small{font-size:var(--fs-label);font-weight:700;letter-spacing:.08em;color:#7c775f}
+.fr-card-text small{font-size:var(--fs-label);font-weight:700;letter-spacing:.08em;color:#5f5a44}
 .fr-card-text strong{font-size:17px;line-height:1.3}
 .fr-card-text>span{font-size:var(--fs-body);line-height:1.4;color:#40566c}
 .fr-big{font:700 clamp(22px,2.4vw,32px)/1.15 Lexend,sans-serif !important}
@@ -254,7 +254,7 @@ button.fr-card:active{transform:translateY(2px);box-shadow:none}
 
 /* K2 · Mảnh ghép (tr. 18) */
 .fr-code{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:10px}
-.fr-code button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:var(--tap);border:2px dashed #c9a25a;border-radius:16px;background:#fffdf7f2;color:#9a8a68;font:700 clamp(28px,4vw,44px)/1 Lexend,sans-serif}
+.fr-code button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:var(--tap);border:2px dashed #c9a25a;border-radius:16px;background:#fffdf7f2;color:#6b5d3c;font:700 clamp(28px,4vw,44px)/1 Lexend,sans-serif}
 .fr-code button.unlocked{border-style:solid;border-color:var(--navy-2);background:var(--navy-2);color:var(--gold)}
 .fr-code small{font:600 var(--fs-label) 'Be Vietnam Pro',sans-serif;letter-spacing:.06em}
 
@@ -354,7 +354,8 @@ button.fr-scene:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 .fr-pack-grid{flex:1 1 0;min-height:0;display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
 .fr-pack-grid button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:0;min-height:var(--tap);padding:6px;border:1px solid var(--line);border-radius:14px;background:#fffdf7f2;color:var(--ink);font:inherit;font-size:14px;font-weight:600;line-height:1.2;cursor:pointer}
 .fr-pack-grid img{flex:1 1 0;width:100%;max-width:96px;min-height:0;object-fit:contain}
-.fr-pack-grid button[aria-pressed="true"]{background:#f7e3b5;border-color:var(--gold);box-shadow:inset 0 0 0 2px var(--gold);outline:none!important}
+.fr-pack-grid button[aria-pressed="true"]{background:#f7e3b5;border-color:var(--gold);box-shadow:inset 0 0 0 2px var(--gold)}
+.fr-pack-grid button:focus-visible{outline:3px solid #0b172a;outline-offset:3px;box-shadow:0 0 0 6px var(--gold)}
 .fr-pack-bag{display:flex;align-items:center;gap:12px;flex-shrink:0;padding:8px 12px;border:2px dashed #c9a25a;border-radius:14px;background:#fffaf0}
 .fr-pack-bag img{width:60px;height:60px;object-fit:contain;flex:none}
 .fr-pack-bag strong{font-size:var(--fs-body)}

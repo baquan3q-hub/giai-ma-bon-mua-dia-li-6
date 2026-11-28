@@ -21,6 +21,8 @@ import {content as pageContent,freshUI,firstOpen,orbitHint,seasonHint,chartX,glo
 import './styles/v15.css';
 import './styles/v16.css';
 import './styles/v17.css';
+import './styles/design-tokens.css';
+import './styles/theme-dai-quan-sat.css';
 import {pages,spreads,stations,goals,phases,PAGE_COUNT} from './content/book';
 import {fresh,load,save,completed,pageDone,warm,CODE,PLACES,SHEET3_DAYS,SEASONS,SEASON_NAMES,SEASON_N,SEASON_S,readsDayLength,unsuitable,packRubric,type ProgressV1} from './state/progress';
 import {dates,dateLabel} from './science/earth';
@@ -33,7 +35,7 @@ let state=loaded.state,warning=loaded.warning,data:Data,config:any;
 let resources:Resource[]=[];
 // Gợi ý 2 tầng theo trang (public/data/hints.json): ask = câu hỏi gợi mở, look = chỉ chỗ cần nhìn, at = vùng tô sáng.
 let hints:Record<string,{ask:string;look:string;at:string}>={};const preferences=readPreferences();setSound(preferences.sound);
-let scene:SceneHandle|undefined,sceneToken=0;
+let scene:SceneHandle|undefined,sceneToken=0,coverGlobe:{dispose():void}|undefined;
 let dialog:HTMLDialogElement|undefined,lastFocus:HTMLElement|null=null;
 let playing:ReturnType<typeof setInterval>|undefined,playingSky=false,playedDays=0;
 let ui:UI=freshUI();
@@ -54,7 +56,7 @@ function notify(text:string){announce(text);document.querySelector('.app-toast')
 const badges=()=>completed(state) as number[];
 function view(){return wide.matches?spreads.find(s=>s.includes(state.page))!:[state.page];}
 function stopPlay(){if(playing){clearInterval(playing);playing=undefined;}markPlay();}
-function stopScene(){sceneToken++;scene?.dispose();scene=undefined;stopPlay();}
+function stopScene(){sceneToken++;scene?.dispose();scene=undefined;coverGlobe?.dispose();coverGlobe=undefined;stopPlay();}
 function reducedMotion(){return state.reducedMotion||preferences.motion==='off'||(preferences.motion==='system'&&matchMedia('(prefers-reduced-motion: reduce)').matches);}
 let resumePage=state.page;
 function resetUI(){ui=freshUI();if(state.seen.includes('news'))ui.revealed=['hn','sy'];}
@@ -72,7 +74,9 @@ function prepare(){const v=view(),sc=state.scene;
  if(v.includes(11)&&(sc.lat===21||sc.lat===-34))mark(`sky-${sc.lat}`);
  persist();}
 function partLabel(p:number){const ph=pages[p-1].phase;return ph?`${ph} · ${phases[ph].name}`:p===1?'Bìa':'Kết thúc';}
-function article(p:number){const item=pages[p-1];const head=p===1?'':`<header class="fr-head"><span class="eyebrow">${esc(partLabel(p).toUpperCase())}</span><h2 tabindex="-1">${item.title}</h2></header>${item.say?`<div class="fr-speech">${img('A02','','')}<span class="say" aria-live="polite">${item.say}</span>${hints[p]?btn('💡 <span>Gợi ý</span>',`hint:${p}`,'hint-btn','aria-expanded="false"'):''}</div>`:''}`;return `<article class="page ${p===1?'cover':''} ${p===PAGE_COUNT?'back-cover':''} ${p>1?'framed v14-page':''}" data-page="${p}" style="--page-side:${p%2===0?'0%':'100%'}">${head}<div class="page-body">${content(p)}</div>${p===1?'':`<footer class="page-footer"><span>GIẢI MÃ BỐN MÙA</span><b>${String(p).padStart(2,'0')}</b></footer>`}</article>`;}
+// Các trang đã chuyển sang giao diện "Đài quan sát"; thêm dần số trang vào đây.
+const OBS_PAGES=new Set([2,3]);
+function article(p:number){const item=pages[p-1],obs=OBS_PAGES.has(p);const head=p===1?'':`<header class="fr-head"><span class="eyebrow">${esc(obs?partLabel(p):partLabel(p).toUpperCase())}</span><h2 tabindex="-1">${item.title}</h2></header>${item.say?`<div class="fr-speech">${img('A02','','')}<span class="say" aria-live="polite">${item.say}</span>${hints[p]?btn('💡 <span>Gợi ý</span>',`hint:${p}`,'hint-btn','aria-expanded="false"'):''}</div>`:''}`;return `<article class="page ${p===1?'cover':''} ${p===PAGE_COUNT?'back-cover':''} ${p>1?'framed v14-page':''}${obs?' obs':''}" data-page="${p}" style="--page-side:${p%2===0?'0%':'100%'}">${head}<div class="page-body">${content(p)}</div>${p===1?'':`<footer class="page-footer"><span>GIẢI MÃ BỐN MÙA</span><b>${String(p).padStart(2,'0')}</b></footer>`}</article>`;}
 function render(){stopScene();prepare();const visible=view(),page=pages[state.page-1];document.documentElement.classList.toggle('reduced-motion',reducedMotion());document.documentElement.classList.toggle('force-book-motion',preferences.motion==='on');
  root.innerHTML=`<header class="app-header"><span class="brand"><span class="brand-mark">✧</span><span>GIẢI MÃ <b>BỐN MÙA</b><small>ĐỊA LÍ 6 · BÀI 8</small></span></span>${stationBar()}<nav aria-label="Công cụ">${btn(icon('list')+'<span>Mục lục</span>','toc','header-button')}${btn(icon('more'),'menu','header-button menu-button','aria-label="Thêm: đọc to, âm thanh, cỡ chữ, thầy cô" aria-haspopup="dialog"')}</nav></header><main><div id="storage-warning" role="status">${esc(warning)}</div><div class="book-stage"><div class="book ${visible.length===2?'spread':'single'} ${state.page===1?'front-cover':''}" style="--page-side:${state.page%2===0?'0%':'100%'};--scene-bg:url('${new URL(`${base}assets/${page.image}.webp`,location.href).href}')">${visible.map(article).join('')}</div></div><nav class="book-navigation v14-nav" aria-label="Lật trang">${btn('←','previous','nav-arrow',`aria-label="Trang trước" ${visible[0]===1?'disabled':''}`)}<div class="nav-label"><span>${esc(partLabel(visible.at(-1)!))}</span><strong>Trang ${visible.join('–')} / ${PAGE_COUNT}</strong></div>${btn('→','next','nav-arrow',`aria-label="Trang sau" ${visible.at(-1)===PAGE_COUNT?'disabled':''}`)}</nav></main>`;
  history.replaceState(null,'',`#trang-${state.page}`);resumePage=Math.max(resumePage,state.page);
@@ -80,6 +84,7 @@ function render(){stopScene();prepare();const visible=view(),page=pages[state.pa
  if(preferences.voice&&preferences.sound)queueMicrotask(()=>readPage(state.page,true));
  const orbit=document.querySelector<HTMLElement>('#orbit-mount'),sky=document.querySelector<HTMLElement>('#sky-mount');
  if(orbit)void mountScene(orbit,'orbit');else if(sky)void mountScene(sky,'sky');
+ const globe=document.querySelector<HTMLElement>('#cover-globe');if(globe)void mountCover(globe);
  paintHint();dockPaint();
 }
 // Vẽ lại phần thân các trang đang mở mà không dựng lại cảnh 3D đang chạy.
@@ -95,6 +100,8 @@ function toc(){const done=badges(),row=(p:number)=>{const d=pageDone(state,p);re
 function menu(){const skyOpen=view().includes(11)&&!!scene;
  openDialog('Thêm',`<div class="menu-list">${btn(icon('listen')+'<span>Đọc to trang này</span>','read-page')}${btn(icon(preferences.sound?'sound':'mute')+`<span>Âm thanh: ${preferences.sound?'Bật':'Tắt'}</span>`,'toggle-sound','sound-toggle',`aria-pressed="${preferences.sound}"`)}${btn(icon('expand')+`<span>${document.fullscreenElement?'Thoát toàn màn hình':'Toàn màn hình'}</span>`,'fullscreen')}${btn('<b class="aa">Aa</b>'+`<span>Cỡ chữ: ${preferences.large?'Lớn':'Thường'}</span>`,'text-size','',`aria-pressed="${preferences.large}"`)}${btn(icon('teacher')+'<span>Thầy cô dạy trên lớp</span>','teacher')}${skyOpen?btn(icon('globe')+'<span>Xoay điện thoại để nhìn trời</span>','gyro'):''}</div><details class="menu-more"><summary>Tuỳ chọn khác</summary><label>Hiệu ứng lật sách<select data-motion="mode"><option value="system" ${preferences.motion==='system'?'selected':''}>Theo thiết bị</option><option value="on" ${preferences.motion==='on'?'selected':''}>Có hiệu ứng</option><option value="off" ${preferences.motion==='off'?'selected':''}>Giảm chuyển động</option></select></label><label>Chất lượng 3D<select data-setting="quality"><option value="high" ${state.quality==='high'?'selected':''}>Cao</option><option value="low" ${state.quality==='low'?'selected':''}>Thấp (máy yếu)</option></select></label><label class="check"><input type="checkbox" data-pref="voice" ${preferences.voice?'checked':''}> Tự đọc to khi mở trang</label>${btn('Nguồn và phiên bản','sources','text-button')}${btn('Học lại từ đầu','restart','text-button danger-text')}</details>`,'menu-dialog');}
 function teacher(){openDialog('Thầy cô dạy trên lớp',`<p>Chọn hoạt động để mở đúng trang khi chiếu. Bảng thầy cô có chế độ trình chiếu (chữ lớn), ẩn/hiện đáp án, đồng hồ đếm ngược, bảng điểm đội và bình chọn giơ tay.</p><div class="fr-controls">${btn(teach.on?'Đóng bảng thầy cô':'Mở bảng thầy cô','t-open','primary')}${btn('Đúng hay Sai · 30 giây','tf-start','secondary')}</div>${LESSON.map(([h,list])=>`<section class="toc-part"><h3>${h}</h3><ol class="toc-list">${list.map(([n,p])=>`<li>${btn(`<b>${p}</b><span>${n}</span>`,`go:${p}`,'toc-link')}</li>`).join('')}</ol></section>`).join('')}`,'toc-dialog');}
+// Bìa: Trái Đất 3D tải sau, ảnh tĩnh C01 vẫn hiện nếu máy không có WebGL.
+async function mountCover(el:HTMLElement){const token=sceneToken;try{const {mountCoverGlobe}=await import('./scenes/cover-globe');if(token!==sceneToken||!el.isConnected)return;coverGlobe=mountCoverGlobe(el,{reduced:reducedMotion(),low:state.quality==='low'});}catch{/* giữ ảnh tĩnh */}}
 async function mountScene(el:HTMLElement,kind:'orbit'|'sky'){const token=++sceneToken;try{const {createScene}=await import('./scenes/world');if(token!==sceneToken||!el.isConnected)return;scene=createScene(el,kind,state.scene,{quality:state.quality,reduced:reducedMotion(),onSeen:()=>{}});if(ui.near)scene.closeUp(true);}catch{if(token!==sceneToken||!el.isConnected)return;el.innerHTML=kind==='sky'?'<div class="fallback-scene"><p>Máy chưa mở được cảnh 3D. Em xem hình ở trang 10: ngày 22/6 Hà Nội có 13 giờ 17 phút ban ngày, Sydney chỉ khoảng 9 giờ 44 phút.</p></div>':`<div class="fallback-scene"><p>Máy chưa mở được cảnh 3D. Em xem hình quỹ đạo ở trang 7.</p></div>`;}}
 function updateScene(){scene?.update(state.scene);liveDay();document.querySelectorAll<HTMLElement>('[data-action^="date:"]').forEach(e=>{const on=e.dataset.action===`date:${state.scene.day}`;e.classList.toggle('active',on);e.setAttribute('aria-pressed',String(on));});}
 function markPlay(){for(const [action,label] of [['play-orbit','Chạy một năm'],['play-sky','Chạy một ngày']] as const)document.querySelectorAll(`[data-action="${action}"]`).forEach(el=>{const on=!!playing&&playingSky===(action==='play-sky');el.setAttribute('aria-pressed',String(on));const s=el.querySelector('span');if(s)s.textContent=on?'Dừng':label;});}

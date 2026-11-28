@@ -1,0 +1,223 @@
+/* ==========================================================================
+   Giao diện "Đài quan sát ban đêm" — chỉ dùng token trong design-tokens.css.
+   Chuyển dần từng trang; trang nào chưa chuyển vẫn giữ giao diện giấy cũ.
+   Nạp sau cùng; mọi bộ chọn bắt đầu bằng html[data-theme=dai-quan-sat].
+   ========================================================================== */
+
+/* ---- Khung ứng dụng (đầu trang, lật trang) ---- */
+html[data-theme=dai-quan-sat] body{background:var(--c-bg)}
+html[data-theme=dai-quan-sat] .app-header,
+html[data-theme=dai-quan-sat] .book-navigation{font-family:var(--font-body)}
+html[data-theme=dai-quan-sat] .app-header{border-bottom:1px solid var(--c-line)}
+html[data-theme=dai-quan-sat] .brand-mark{color:var(--c-accent)}
+html[data-theme=dai-quan-sat] .brand b{color:var(--c-accent-soft)}
+html[data-theme=dai-quan-sat] .header-button{border-color:var(--c-line-strong);background:transparent;color:var(--c-text)}
+html[data-theme=dai-quan-sat] .header-button:hover{background:var(--c-surface)}
+html[data-theme=dai-quan-sat] .book-navigation .nav-arrow{border-color:var(--c-line-strong);background:transparent;color:var(--c-text)}
+html[data-theme=dai-quan-sat] .book-navigation span{color:var(--c-text-muted)}
+html[data-theme=dai-quan-sat] .book-navigation strong{color:var(--c-accent-soft)}
+html[data-theme=dai-quan-sat] :is(.app-header,.book-navigation,.station-bar) :focus-visible{outline:3px solid var(--c-focus);outline-offset:3px}
+
+/* ==========================================================================
+   Trang 1 · Bìa
+   Một điểm nhấn duy nhất: Trái Đất 3D được Mặt Trời chiếu từ bên trái,
+   đường sáng – tối chạy dọc quả cầu. Mọi thứ khác im lặng.
+   ========================================================================== */
+html[data-theme=dai-quan-sat] .book.front-cover{
+  background:
+    radial-gradient(ellipse 60% 75% at -8% 38%,#FFB62724,transparent 70%),
+    radial-gradient(ellipse 50% 60% at 78% 52%,var(--c-glow-earth),transparent 72%),
+    var(--c-bg);
+  border:1px solid var(--c-line);
+  border-radius:var(--r-lg);
+  box-shadow:0 30px 80px #0008;
+}
+html[data-theme=dai-quan-sat] .page.cover{color:var(--c-text);font-family:var(--font-body)}
+html[data-theme=dai-quan-sat] .page.cover .page-body{position:relative;height:100%;overflow:hidden}
+
+.obs-cover{
+  position:relative;height:100%;
+  display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);
+  grid-template-rows:1fr auto;
+  grid-template-areas:"copy globe" "credit globe";
+  column-gap:var(--sp-5);
+  padding:var(--sp-7) var(--sp-7) var(--sp-5);
+}
+/* Trời sao: chấm nhỏ, mờ, không lặp đều */
+.obs-cover::before{
+  content:'';position:absolute;inset:0;pointer-events:none;opacity:.75;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='360'%3E%3Cg fill='%23E8EEF9'%3E%3Ccircle cx='18' cy='32' r='.9'/%3E%3Ccircle cx='96' cy='12' r='.6'/%3E%3Ccircle cx='151' cy='71' r='1.1'/%3E%3Ccircle cx='233' cy='28' r='.7'/%3E%3Ccircle cx='301' cy='94' r='.8'/%3E%3Ccircle cx='388' cy='41' r='1.2' opacity='.8'/%3E%3Ccircle cx='57' cy='141' r='.6'/%3E%3Ccircle cx='132' cy='198' r='.8'/%3E%3Ccircle cx='207' cy='163' r='.5'/%3E%3Ccircle cx='274' cy='231' r='1'/%3E%3Ccircle cx='352' cy='176' r='.6'/%3E%3Ccircle cx='408' cy='262' r='.8'/%3E%3Ccircle cx='31' cy='279' r='1'/%3E%3Ccircle cx='112' cy='318' r='.6'/%3E%3Ccircle cx='188' cy='292' r='.9'/%3E%3Ccircle cx='246' cy='341' r='.6'/%3E%3Ccircle cx='329' cy='313' r='.7'/%3E%3Ccircle cx='72' cy='88' r='.5'/%3E%3Ccircle cx='265' cy='118' r='.6'/%3E%3Ccircle cx='170' cy='248' r='.5'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ---- Chữ ---- */
+.obs-copy{grid-area:copy;position:relative;z-index:2;align-self:center;display:flex;flex-direction:column;align-items:flex-start;max-width:34rem}
+.obs-kicker{margin:0 0 var(--sp-4);font-size:var(--fs-sm);line-height:var(--lh-snug);color:var(--c-text-muted)}
+html[data-theme=dai-quan-sat] .obs-copy h1{
+  margin:0;font-family:var(--font-display);font-weight:var(--fw-strong);
+  font-size:var(--fs-3xl);line-height:var(--lh-tight);letter-spacing:-.035em;
+  color:var(--c-text);text-wrap:balance;max-width:7.5em;outline:none;
+}
+.obs-question{margin:var(--sp-5) 0 var(--sp-6);font-size:var(--fs-lg);line-height:var(--lh-snug);color:var(--c-text);max-width:22em}
+
+/* Nút: một nút chính (vàng Mặt Trời), một nút phụ (viền) */
+html[data-theme=dai-quan-sat] .obs-cover .cover-entries{display:flex;flex-wrap:wrap;gap:var(--sp-3);margin:0}
+html[data-theme=dai-quan-sat] .obs-cover .cover-entries>button{
+  min-height:var(--tap-main);padding:var(--sp-3) var(--sp-5);border-radius:var(--r-md);
+  font:var(--fw-strong) var(--fs-md)/1.2 var(--font-body);
+}
+html[data-theme=dai-quan-sat] .obs-cover .primary{background:var(--c-accent);color:var(--c-accent-ink);box-shadow:0 0 32px var(--c-glow-sun)}
+html[data-theme=dai-quan-sat] .obs-cover .primary:hover{filter:brightness(1.08)}
+html[data-theme=dai-quan-sat] .obs-cover .cover-teacher{border:1.5px solid var(--c-line-strong);background:transparent;color:var(--c-text)}
+html[data-theme=dai-quan-sat] .obs-cover .cover-teacher:hover{background:var(--c-surface);border-color:var(--c-text-muted)}
+html[data-theme=dai-quan-sat] .obs-cover :focus-visible{outline:3px solid var(--c-focus);outline-offset:4px}
+
+/* ---- Trái Đất ---- */
+.obs-globe{
+  grid-area:globe;position:relative;z-index:1;margin:0;
+  align-self:stretch;justify-self:stretch;min-height:0;
+  touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none;
+}
+.obs-globe:active{cursor:grabbing}
+.obs-globe canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity var(--dur-slow) var(--ease-out)}
+.obs-globe.is-3d canvas{opacity:1}
+.obs-globe-fallback{position:absolute;inset:8%;width:84%;height:84%;object-fit:contain;transition:opacity var(--dur-slow)}
+.obs-globe.is-3d .obs-globe-fallback{opacity:0}
+.obs-drag{
+  position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+  font-size:var(--fs-xs);color:var(--c-text-muted);white-space:nowrap;
+  opacity:0;transition:opacity var(--dur-slow);
+}
+.obs-globe.is-3d .obs-drag{opacity:1}
+
+/* Sao Mai: nhỏ, ngồi ở mép dưới quả cầu */
+.obs-sao{position:absolute;z-index:2;right:var(--sp-5);bottom:var(--sp-4);width:clamp(72px,11%,130px);height:auto;filter:drop-shadow(0 10px 14px #0007)}
+.obs-credit{grid-area:credit;position:relative;z-index:2;align-self:end;margin:0;font-size:var(--fs-xs);color:var(--c-text-muted)}
+
+/* ---- Màn hình dọc / tablet đứng / điện thoại: quả cầu ở trên, chữ ở dưới ---- */
+@media(max-width:1099px),(max-aspect-ratio:5/4){
+  .obs-cover{
+    grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto auto;
+    grid-template-areas:"globe" "copy" "credit";
+    row-gap:var(--sp-4);padding:var(--sp-5) var(--sp-5) var(--sp-4);
+  }
+  .obs-copy{align-self:start;max-width:none}
+  .obs-kicker{margin-bottom:var(--sp-2)}
+  .obs-question{margin:var(--sp-3) 0 var(--sp-4)}
+  .obs-sao{top:var(--sp-4);bottom:auto;width:clamp(64px,15%,110px)}
+}
+@media(max-width:700px){
+  .obs-cover{padding:var(--sp-4) var(--sp-4) var(--sp-3);row-gap:var(--sp-3)}
+  html[data-theme=dai-quan-sat] .obs-copy h1{font-size:clamp(34px,10vw,44px)}
+  .obs-question{font-size:var(--fs-md)}
+  html[data-theme=dai-quan-sat] .obs-cover .cover-entries{width:100%;flex-direction:column}
+  html[data-theme=dai-quan-sat] .obs-cover .cover-entries>button{width:100%}
+}
+/* Tiêu đề nhận focus bằng code khi lật trang: không vẽ khung (trình đọc màn hình vẫn đọc) */
+html[data-theme=dai-quan-sat] :is(.obs-copy h1,.page.obs h2)[tabindex="-1"]:focus{outline:none}
+@media(prefers-reduced-motion:reduce){.obs-globe canvas,.obs-globe-fallback,.obs-drag{transition:none}}
+
+/* ==========================================================================
+   Khung trang trong (.page.obs), dùng chung cho mọi trang đã chuyển:
+   đầu trang · lời Sao Mai · thân trang · nút chính · chân trang.
+   ========================================================================== */
+html[data-theme=dai-quan-sat] .page.framed.obs{
+  background:radial-gradient(ellipse 70% 45% at 50% 0%,#26386A66,transparent 70%),var(--c-bg);
+  color:var(--c-text);font-family:var(--font-body);
+}
+html[data-theme=dai-quan-sat] .page.obs::before{
+  content:'';position:absolute;inset:0;pointer-events:none;opacity:.45;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='260'%3E%3Cg fill='%23E8EEF9'%3E%3Ccircle cx='22' cy='30' r='.8'/%3E%3Ccircle cx='140' cy='14' r='.6'/%3E%3Ccircle cx='262' cy='58' r='1'/%3E%3Ccircle cx='70' cy='120' r='.6'/%3E%3Ccircle cx='198' cy='150' r='.8'/%3E%3Ccircle cx='286' cy='206' r='.6'/%3E%3Ccircle cx='38' cy='222' r='.9'/%3E%3Ccircle cx='150' cy='240' r='.5'/%3E%3C/g%3E%3C/svg%3E");
+}
+html[data-theme=dai-quan-sat] .page.obs>*{position:relative}
+html[data-theme=dai-quan-sat] .page.obs .eyebrow{font-size:var(--fs-xs);letter-spacing:0;color:var(--c-accent-soft);font-weight:var(--fw-regular)}
+html[data-theme=dai-quan-sat] .page.obs h2{font-family:var(--font-display);font-weight:var(--fw-strong);font-size:var(--fs-xl);letter-spacing:-.02em;color:var(--c-text)}
+html[data-theme=dai-quan-sat] .page.obs .fr-speech{background:var(--c-surface);border:1px solid var(--c-line);color:var(--c-text)}
+html[data-theme=dai-quan-sat] .page.obs .fr-text{color:var(--c-text-muted);font-size:var(--fs-md);line-height:var(--lh-body)}
+html[data-theme=dai-quan-sat] .page.obs .fr-text b{color:var(--c-text)}
+html[data-theme=dai-quan-sat] .page.obs .fr-actions .primary{background:var(--c-accent);color:var(--c-accent-ink);border:0;border-radius:var(--r-md);min-height:var(--tap-main);font:var(--fw-strong) var(--fs-md)/1.2 var(--font-body);box-shadow:0 0 28px var(--c-glow-sun)}
+html[data-theme=dai-quan-sat] .page.obs .fr-actions .primary:hover{filter:brightness(1.08)}
+html[data-theme=dai-quan-sat] .page.obs .page-footer{color:var(--c-text-muted);border-top-color:var(--c-line)}
+html[data-theme=dai-quan-sat] .page.obs .page-footer b{color:var(--c-accent-soft)}
+html[data-theme=dai-quan-sat] .page.obs :focus-visible{outline:3px solid var(--c-focus);outline-offset:3px}
+
+/* ==========================================================================
+   Trang 2 · Nhiệm vụ của nhà giải mã
+   Câu hỏi lớn là điểm nhấn. Bốn phần A–D là một lộ trình có thứ tự thật:
+   phần đang học sáng như Mặt Trời, các phần sau là chấm sao chưa tới.
+   ========================================================================== */
+.obs-brief{flex:1;display:flex;flex-direction:column;justify-content:center;gap:var(--sp-7);min-height:0}
+.obs-brief-q{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"lead sao" "big sao";column-gap:var(--sp-4);align-items:end}
+.page.obs .obs-brief-lead{grid-area:lead;margin:0 0 var(--sp-2);font-size:var(--fs-lg);color:var(--c-text-muted)}
+.page.obs .obs-brief-big{grid-area:big;margin:0;font-family:var(--font-display);font-weight:var(--fw-strong);font-size:var(--fs-2xl);line-height:var(--lh-snug);letter-spacing:-.02em;color:var(--c-text);text-wrap:balance}
+.obs-brief-sao{grid-area:sao;width:clamp(84px,9vw,140px);height:auto;align-self:center;filter:drop-shadow(0 10px 14px #0007)}
+
+.obs-route{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-3);position:relative}
+/* Đường nối đi qua tâm các chấm; đoạn đầu vàng = đang ở phần A */
+.obs-route::before{content:'';position:absolute;left:12.5%;right:12.5%;top:21px;height:2px;background:linear-gradient(90deg,var(--c-accent) 0 12%,var(--c-line) 12%)}
+.obs-route li{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--sp-1)}
+.obs-route b{display:grid;place-items:center;width:44px;height:44px;margin-bottom:var(--sp-2);border-radius:50%;
+  border:2px solid var(--c-line-strong);background:var(--c-bg);color:var(--c-text-muted);font-weight:var(--fw-strong);font-size:var(--fs-md)}
+.obs-route strong{font-weight:var(--fw-strong);font-size:var(--fs-md);color:var(--c-text)}
+.obs-route span{font-size:var(--fs-xs);line-height:var(--lh-snug);color:var(--c-text-muted)}
+.obs-route li.on b{border-color:var(--c-accent);background:var(--c-accent);color:var(--c-accent-ink);box-shadow:0 0 0 6px #FFB62726,0 0 26px var(--c-glow-sun)}
+.obs-route li.on strong{color:var(--c-accent-soft)}
+
+/* Điện thoại: lộ trình xếp dọc, đường nối chạy dọc bên trái */
+@media(max-width:560px){
+  .obs-brief{gap:var(--sp-5);justify-content:flex-start}
+  .page.obs .obs-brief-big{font-size:clamp(24px,7vw,30px)}
+  .obs-brief-sao{width:72px;align-self:start}
+  .obs-route{grid-template-columns:1fr;gap:var(--sp-2)}
+  .obs-route::before{left:21px;right:auto;top:22px;bottom:22px;width:2px;height:auto;background:linear-gradient(180deg,var(--c-accent) 0 14%,var(--c-line) 14%)}
+  .obs-route li{display:grid;grid-template-columns:44px 1fr;column-gap:var(--sp-3);align-items:center;text-align:left}
+  .obs-route b{grid-row:1/3;margin:0}
+  .obs-route strong{align-self:end}
+  .obs-route span{align-self:start}
+}
+
+/* ---- Gợi ý của Sao Mai (dùng chung mọi trang .obs) ---- */
+html[data-theme=dai-quan-sat] .page.obs .hint-btn{border:1.5px solid var(--c-line-strong);background:transparent;color:var(--c-accent-soft);font-family:var(--font-body)}
+html[data-theme=dai-quan-sat] .page.obs .hint-btn:hover{background:var(--c-surface-2)}
+html[data-theme=dai-quan-sat] .page.obs .fr-speech.hinting{border-color:var(--c-accent);background:var(--c-surface-2)}
+html[data-theme=dai-quan-sat] .page.obs .fr-speech.hinting b{color:var(--c-accent-soft)}
+html[data-theme=dai-quan-sat] .page.obs .hint-glow{box-shadow:0 0 0 3px var(--c-accent),0 0 0 8px var(--c-glow-sun)}
+
+/* ==========================================================================
+   Trang 3 · Bản tin hai nửa cầu
+   Hai "màn hình quan sát" đặt cạnh nhau. Màu viền nói lên mùa:
+   Hà Nội = vàng Mặt Trời (mùa nóng), Sydney = tím phía đêm (mùa lạnh).
+   Thẻ "Cùng ngày" nối hai màn hình. Câu trả lời chỉ hiện khi em chạm.
+   ========================================================================== */
+html[data-theme=dai-quan-sat] .page.obs .fr-scene{
+  background:var(--c-surface);border:1.5px solid var(--c-line-strong);border-radius:var(--r-lg);color:var(--c-text);
+  transition:border-color var(--dur-fast),box-shadow var(--dur-fast);
+}
+html[data-theme=dai-quan-sat] .page.obs .fr-scene.warm{border-top:4px solid var(--c-day)}
+html[data-theme=dai-quan-sat] .page.obs .fr-scene.cold{border-top:4px solid var(--c-night)}
+html[data-theme=dai-quan-sat] .page.obs .fr-scene:hover{border-color:var(--c-text-muted)}
+html[data-theme=dai-quan-sat] .page.obs .fr-scene.warm.open{border-color:var(--c-day);box-shadow:0 0 28px #FFB62733}
+html[data-theme=dai-quan-sat] .page.obs .fr-scene.cold.open{border-color:var(--c-night);box-shadow:0 0 28px #8C6BD140}
+html[data-theme=dai-quan-sat] .page.obs button.fr-scene:focus-visible{outline:3px solid var(--c-focus);outline-offset:3px;box-shadow:none}
+
+html[data-theme=dai-quan-sat] .page.obs .fr-scene small{font-size:var(--fs-sm);font-weight:var(--fw-regular);letter-spacing:0;color:var(--c-text-muted)}
+html[data-theme=dai-quan-sat] .page.obs .fr-scene strong{font-family:var(--font-display);font-weight:var(--fw-strong);letter-spacing:-.02em}
+/* Chưa chạm: lời mời trầm; đã chạm: thời tiết sáng màu của mùa */
+html[data-theme=dai-quan-sat] .page.obs .fr-scene .q{color:var(--c-text)}
+html[data-theme=dai-quan-sat] .page.obs .fr-scene.warm .a{color:var(--c-accent-soft)}
+html[data-theme=dai-quan-sat] .page.obs .fr-scene.cold .a{color:var(--c-night-text)}
+/* Giữ chỗ cho nhãn áo khi chưa chạm: ảnh không nhảy khi câu trả lời hiện ra */
+html[data-theme=dai-quan-sat] .page.obs .fr-scene:not(.open) .fr-chips{height:auto}
+html[data-theme=dai-quan-sat] .page.obs .fr-chips i{background:var(--c-bg);border:1px solid var(--c-line);color:var(--c-text);font-weight:var(--fw-strong)}
+html[data-theme=dai-quan-sat] .page.obs .fr-scene.warm .fr-chips svg{color:var(--c-day)}
+html[data-theme=dai-quan-sat] .page.obs .fr-scene.cold .fr-chips svg{color:var(--c-night-text)}
+
+html[data-theme=dai-quan-sat] .page.obs .fr-same{
+  border:1.5px solid var(--c-accent);border-radius:var(--r-pill);background:var(--c-bg);color:var(--c-accent-soft);
+  padding:var(--sp-2) var(--sp-3);box-shadow:0 0 0 6px var(--c-bg),0 0 22px var(--c-glow-sun);
+}
+html[data-theme=dai-quan-sat] .page.obs .fr-same span{font-size:var(--fs-xs);font-weight:var(--fw-strong);letter-spacing:0;line-height:1.15}
+
+/* Điện thoại: chữ nằm trên ảnh (frames.css) — giữ nền tối dưới chữ cho đủ tương phản */
+@media(max-width:700px){
+  html[data-theme=dai-quan-sat] .page.obs .fr-scene .fr-cap{background:linear-gradient(transparent,#101A33F0 55%)}
+}

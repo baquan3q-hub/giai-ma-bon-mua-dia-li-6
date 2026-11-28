@@ -1,0 +1,66 @@
+/* ==========================================================================
+   Bộ token thiết kế dùng lại cho các ebook (màu, chữ, khoảng cách, bo góc).
+   - Thành phần chỉ dùng tên ngữ nghĩa (--c-bg, --c-accent…), không dùng mã màu trực tiếp.
+   - Mỗi ebook đổi giao diện bằng cách đặt <html data-theme="…"> và khai báo một khối theme.
+   - Tương phản đã đo theo WCAG 2.1 AA (ghi bên cạnh, so với --c-bg).
+   ========================================================================== */
+
+/* ---- Phần chung, không phụ thuộc giao diện ---- */
+:root{
+  /* Chữ: thang 1.25 (major third), gốc 16px. Nội dung ≥16px, nhãn ≥14px. */
+  --font-body:'Lexend',system-ui,sans-serif;
+  --font-display:'Lexend',system-ui,sans-serif;
+  --fs-xs:14px;   /* nhãn, chú thích — không nhỏ hơn mức này */
+  --fs-sm:15px;
+  --fs-md:16px;   /* thân bài */
+  --fs-lg:20px;
+  --fs-xl:25px;
+  --fs-2xl:clamp(28px,3.2vw,39px);
+  --fs-3xl:clamp(40px,6.4vw,84px);  /* tiêu đề bìa */
+  --lh-tight:1.08;
+  --lh-snug:1.3;
+  --lh-body:1.6;
+  --fw-regular:400;
+  --fw-strong:600;
+
+  /* Khoảng cách: bước 4px */
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px;
+  --sp-5:24px; --sp-6:32px; --sp-7:48px; --sp-8:64px;
+
+  /* Bo góc theo cấp: nhỏ cho chip, vừa cho nút, lớn cho khung */
+  --r-sm:8px; --r-md:12px; --r-lg:20px; --r-pill:999px;
+
+  /* Vùng chạm tối thiểu (WCAG 2.5.5 / tablet) */
+  --tap:44px;
+  --tap-main:52px;
+
+  /* Viền focus: 3px, luôn có vòng tương phản kép để thấy trên mọi nền */
+  --focus-ring:0 0 0 3px var(--c-bg),0 0 0 6px var(--c-focus);
+
+  /* Chuyển động */
+  --ease-out:cubic-bezier(.2,.7,.2,1);
+  --dur-fast:150ms;
+  --dur-slow:600ms;
+}
+
+/* ---- Giao diện "Đài quan sát ban đêm" (Giải mã bốn mùa) ---- */
+:root[data-theme="dai-quan-sat"]{
+  color-scheme:dark;
+  --c-bg:#101A33;          /* trời đêm */
+  --c-surface:#1C2B52;     /* thẻ, khung */
+  --c-surface-2:#26386A;   /* thẻ nổi, hover */
+  --c-text:#E8EEF9;        /* 14.8:1 */
+  --c-text-muted:#A9B8D3;  /* 8.6:1 ; 6.9:1 trên --c-surface */
+  --c-accent:#FFB627;      /* Mặt Trời, nút chính; 9.8:1 */
+  --c-accent-ink:#101A33;  /* chữ trên nút vàng; 9.8:1 */
+  --c-accent-soft:#FFD27A; /* chữ nhấn vàng; 12.1:1 */
+  --c-day:#FFB627;         /* nửa được chiếu sáng (hình SGK: vàng) */
+  --c-night:#8C6BD1;       /* nửa tối (hình SGK: tím) — chỉ dùng cho hình, 4.2:1 */
+  --c-night-text:#B9A3F0;  /* chữ màu tím; 7.9:1 */
+  --c-ray:#FF5A4E;         /* tia sáng; 5.6:1 */
+  --c-line:#3A4C75;        /* đường kẻ trang trí (không phải ranh giới nút) */
+  --c-line-strong:#5F7499; /* viền phần tử bấm được; 3.65:1 (WCAG 1.4.11) */
+  --c-focus:#FFD27A;
+  --c-glow-sun:#FFB62755;
+  --c-glow-earth:#4C9BFF40;
+}
